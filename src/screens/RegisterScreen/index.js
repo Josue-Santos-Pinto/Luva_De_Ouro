@@ -16,10 +16,12 @@ export default () => {
     const navigation = useNavigation()
    
 
+    const [fullName,setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
     const [hidePass,setHidePass] = useState(true)
+    const [confirmHidePass,setConfirmHidePass] = useState(true)
+    const [confirmPassword, setConfirmPassword] = useState('')
     
     
 
@@ -34,14 +36,14 @@ export default () => {
             window.location.href = '/'
         }
     } */
-    const handleLoginButton = () => {
-      navigation.reset({
-        index: 1,
-        routes:[{name: 'MainDrawer'}]
-      })
-    }
+
     const handleRegisterButton = () => {
-        navigation.navigate('RegisterScreen')
+        if(password === confirmPassword){
+            navigation.navigate('LoginScreen')
+        } else {
+            alert('As senhas precisam ser iguais')
+        }
+        
     }
 
     return (
@@ -50,6 +52,12 @@ export default () => {
             <C.Logo 
                 source={require('../../assets/logo.png')}
                 resizeMode='contain'
+            />
+            <C.Field 
+                placeholder='Digite seu nome completo'
+                value={fullName}
+                onChangeText={(e)=>setFullName(e)}
+                keyboardType='email-address'
             />
             <C.Field 
                 placeholder='Digite seu e-mail'
@@ -69,9 +77,18 @@ export default () => {
             </C.IconShowPassword>
             </C.InputArea>
 
-            <C.ButtonArea onPress={handleLoginButton}>
-                <C.ButtonText>Entrar</C.ButtonText>
-            </C.ButtonArea>
+            <C.InputArea>
+             <C.FieldPassword 
+                placeholder='Confirme sua senha'
+                secureTextEntry={confirmHidePass}
+                value={confirmPassword}
+                onChangeText={(e)=>setConfirmPassword(e)}
+            />
+            <C.IconShowPassword onPress={()=>setConfirmHidePass(!confirmHidePass)}>
+                <FontAwesome name={confirmHidePass === true ? 'eye': 'eye-slash'} size={24} color='#000' />
+            </C.IconShowPassword>
+            </C.InputArea>
+
 
             <C.ButtonArea onPress={handleRegisterButton}>
                 <C.ButtonText>Cadastrar-se</C.ButtonText>

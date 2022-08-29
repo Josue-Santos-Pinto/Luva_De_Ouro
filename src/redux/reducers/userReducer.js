@@ -10,7 +10,8 @@ export const slice = createSlice({
     reducers:{
         setToken: (state,action) => {
             
-            AsyncStorage.setItem(state.token = action.payload)
+            state.token = action.payload
+            AsyncStorage.setItem(state.token)
         },
         setUser: (state,action) => {
             state.password = action.payload

@@ -73,7 +73,10 @@ export default (props) => {
 
     ]
     const handleLogoutButton = () => {
-
+        navigation.reset({
+            index: 1,
+            routes: [{name: 'LoginScreen'}]   
+        })
     }
 
     return (

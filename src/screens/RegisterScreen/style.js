@@ -7,11 +7,12 @@ export default {
         background-color: #FEF5ED;
     `,
     Logo: styled.Image`
-        width: 250px;
-        height: 200px;
+        width: 150px;
+        height: 100px;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+        margin-top: -30px;
     `,
     InputArea: styled.View`
         flex-direction: row;

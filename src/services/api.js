@@ -36,5 +36,9 @@ export default {
         let token = await AsyncStorage.getItem('token')
         let json = await request('post','/auth/validate',{},token)
         return json
+    },
+    login: async (email,password) => {
+        let json = await request('post','/auth/login',{email,password})
+        return json
     }
 }
