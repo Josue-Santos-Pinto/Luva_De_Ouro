@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 import {FontAwesome} from '@expo/vector-icons'
@@ -47,15 +47,15 @@ import {FontAwesome} from '@expo/vector-icons'
         width: 5px;
         height: 35px;
         margin-right: 20px;
-        background-color: transparent;
+        background-color: ${props=>props.active ? '#94B49F' : 'transparent'};
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
-    `
-    const MenuButtonText = styled.Text`
+`;
+const MenuButtonText = styled.Text`
         font-size: 15px;
         margin-left: 10px;
-        color: #333;
-    `
+        color: ${props=>props.active ? '#94B49F' : '#666E78'};
+`;
 
 
 
@@ -72,6 +72,7 @@ export default (props) => {
         {title: 'Minha Conta', icon: 'user', screen: 'UserScreen' }
 
     ]
+   
     const handleLogoutButton = () => {
         navigation.reset({
             index: 1,
@@ -96,14 +97,15 @@ export default (props) => {
             <DrawerScroller>
                 {menus.map((item,index)=>(
                     <MenuButton key={index} onPress={()=>navigation.navigate(item.screen)}>
-                        <MenuSquare></MenuSquare>
-                        <FontAwesome name={item.icon} size={20} color='#333' />
-                        <MenuButtonText>{item.title}</MenuButtonText>
+                        <MenuSquare 
+                            active={props.state.routes[props.state.index].name === item.screen}></MenuSquare>
+                        <FontAwesome name={item.icon} size={20} color={props.state.routes[props.state.index].name === item.screen ? '#94B49F' : '#666E78'} />
+                        <MenuButtonText active={props.state.routes[props.state.index].name === item.screen}>{item.title}</MenuButtonText>
                     </MenuButton>
                 ))}
                    <MenuButton onPress={handleLogoutButton}>
                         <MenuSquare></MenuSquare>
-                        <FontAwesome name='arrow-left' size={20} color='#333' />
+                        <FontAwesome name='arrow-left' size={20} color={'#333'} />
                         <MenuButtonText>Sair</MenuButtonText>
                     </MenuButton>
             </DrawerScroller>

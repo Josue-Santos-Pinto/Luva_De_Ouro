@@ -9,8 +9,7 @@ import ListaItem from "../../components/ListaItem";
 export default () => {
 
     const navigation = useNavigation()
-    const [items,setItems] = useState(FakeApi)
-    const [list,setList] = useState(items)
+    const [list,setList] = useState(FakeApi)
     const [searchText,setSearchText] = useState('')
 
    
@@ -49,9 +48,9 @@ export default () => {
             )
         })
         if(searchText === ''){
-            setList(items)
+            setList(FakeApi)
         } else {
-            setList(items.filter((item)=>{
+            setList(FakeApi.filter((item)=>{
                 if((item.productName.toLowerCase().indexOf(searchText.toLowerCase()) > -1)){
                     return true
                 } else {

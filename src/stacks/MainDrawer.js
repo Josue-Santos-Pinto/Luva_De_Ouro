@@ -20,6 +20,7 @@ export default () => {
                 shadowOpacity: 0,
                 elevation: 0
             }
+            
         }}>
             <Drawer.Screen 
                 name="HomeScreen"
