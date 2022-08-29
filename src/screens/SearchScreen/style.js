@@ -15,8 +15,23 @@ export default {
         justify-content: space-between;
     `,
     SearchButton: styled.TouchableOpacity`
-        margin: 0 15px;
+        
+        flex-direction: row;
+        background-color: #FFF;
+        border-radius: 5px;
+        width: 170px;
+        overflow: hidden;
     `,
+   
+    InputText: styled.TextInput`
+        width: 80%;
+        padding: 7px;
+    `,
+    SearchButtonIcon: styled.TouchableOpacity`
+        justify-content: center;
+        align-items: center;
+    `,
+
     NotificationButton: styled.TouchableOpacity`
         margin: 0 15px;
     `,

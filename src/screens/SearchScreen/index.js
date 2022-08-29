@@ -10,6 +10,10 @@ export default () => {
 
     const navigation = useNavigation()
     const [items,setItems] = useState(FakeApi)
+    const [list,setList] = useState(items)
+    const [searchText,setSearchText] = useState('')
+
+   
 
 
     useEffect(()=>{
@@ -17,8 +21,21 @@ export default () => {
             headerTitle: '',
             headerRight: () => (
                 <C.ButtonsArea >
-                    <C.SearchButton onPress={()=>navigation.navigate('SearchScreen')}>
-                        <FontAwesome name='search' size={24} color='#000' />
+                    <C.SearchButton>
+                        
+                            <C.InputText 
+                                value={searchText}
+                                placeholder='Procurar Produto'
+                                onChangeText={(e)=>setSearchText(e)}
+                            />
+                            {searchText != '' &&
+                                <C.SearchButtonIcon onPress={()=>setSearchText('')} >
+                                    <FontAwesome name='close' size={24} color='#000' />
+                                </C.SearchButtonIcon>
+                            }
+                           
+                            
+                        
                     </C.SearchButton>
 
                     <C.NotificationButton onPress={()=>navigation.navigate('NotificationScreen')}>
@@ -31,14 +48,29 @@ export default () => {
                 </C.ButtonsArea>
             )
         })
+        if(searchText === ''){
+            setList(items)
+        } else {
+            setList(items.filter((item)=>{
+                if((item.productName.toLowerCase().indexOf(searchText.toLowerCase()) > -1)){
+                    return true
+                } else {
+                    return false
+                }
+                
+            }))
+        }
       
-    },[])
+    },[searchText])
+
+ 
+    
 
 
     return (
         <C.Container>
             <C.ProductsList 
-                data={items}
+                data={list}
                 renderItem={({item,index})=><ListaItem data={item} />}
                 keyExtractor={(item)=>item.id}
             />

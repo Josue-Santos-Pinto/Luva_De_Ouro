@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import HomeScreen from "../screens/HomeScreen";
 import AboutScreen from "../screens/AboutScreen";
 import DrawerCustom from "../components/DrawerCustom";
+import SearchScreen from "../screens/SearchScreen";
 
 const Drawer = createDrawerNavigator()
 
@@ -27,6 +28,10 @@ export default () => {
              <Drawer.Screen 
                 name="AboutScreen"
                 component={AboutScreen}
+            />
+            <Drawer.Screen 
+                name="SearchScreen"
+                component={SearchScreen}
             />
         </Drawer.Navigator>
     )
