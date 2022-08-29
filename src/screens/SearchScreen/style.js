@@ -19,12 +19,13 @@ export default {
         flex-direction: row;
         background-color: #FFF;
         border-radius: 5px;
-        width: 170px;
+        width: 300px;
         overflow: hidden;
+        border: 2px solid #333;
     `,
    
     InputText: styled.TextInput`
-        width: 80%;
+        width: 90%;
         padding: 7px;
     `,
     SearchButtonIcon: styled.TouchableOpacity`

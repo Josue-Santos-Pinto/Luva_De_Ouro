@@ -37,13 +37,7 @@ export default () => {
                         
                     </C.SearchButton>
 
-                    <C.NotificationButton onPress={()=>navigation.navigate('NotificationScreen')}>
-                        <FontAwesome name='bell-o' size={24} color='#000' />
-                    </C.NotificationButton>
-
-                    <C.FavButton onPress={()=>navigation.navigate('FavoriteScreen')}>
-                        <FontAwesome name='heart-o' size={24} color='#000' />
-                    </C.FavButton>
+                 
                 </C.ButtonsArea>
             )
         })
@@ -68,11 +62,13 @@ export default () => {
 
     return (
         <C.Container>
-            <C.ProductsList 
-                data={list}
-                renderItem={({item,index})=><ListaItem data={item} />}
-                keyExtractor={(item)=>item.id}
-            />
+            {searchText != '' &&
+                <C.ProductsList 
+                    data={list}
+                    renderItem={({item,index})=><ListaItem data={item} />}
+                    keyExtractor={(item)=>item.id}
+                />
+            }
         </C.Container>
     )
 }
