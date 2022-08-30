@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 
 const Item = styled.TouchableOpacity`
@@ -36,15 +37,25 @@ const Price = styled.Text`
 const Local = styled.Text``
 
 export default (props) => {
+
+    const navigation = useNavigation()
+
+    const photos = props.data.photos[0]
+    const productName = props.data.productName
+    const price = props.data.price
+    const local = props.data.local
+    const userName = props.data.userName
+
+
     return (
-        <Item>
+        <Item onPress={()=>navigation.navigate('ProductScreen',{photos,productName,price,local,userName})}>
            
                 <ItemArea>
-                    <Photo source={props.data.photos[0]} resizeMode='cover' />
+                    <Photo source={photos} resizeMode='cover' />
                     <TextArea>
-                        <Titulo>{props.data.productName} [Peso: {props.data.weight}]  </Titulo>
-                        <Price>R$ {parseFloat(props.data.price).toFixed(2)}</Price>
-                        <Local>{props.data.local}</Local>
+                        <Titulo>{productName}</Titulo>
+                        <Price>R$ {parseFloat(price).toFixed(2)}</Price>
+                        <Local>{local}</Local>
                     </TextArea>
                 </ItemArea>
            

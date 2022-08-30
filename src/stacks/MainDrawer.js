@@ -2,9 +2,11 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import HomeScreen from "../screens/HomeScreen";
+import ProductScreen from "../screens/ProductScreen";
 import AboutScreen from "../screens/AboutScreen";
 import DrawerCustom from "../components/DrawerCustom";
 import SearchScreen from "../screens/SearchScreen";
+import PostAdScreen from "../screens/PostAdScreen";
 
 const Drawer = createDrawerNavigator()
 
@@ -26,6 +28,10 @@ export default () => {
                 name="HomeScreen"
                 component={HomeScreen}
             />
+            <Drawer.Screen 
+                name="ProductScreen"
+                component={ProductScreen}
+            />
              <Drawer.Screen 
                 name="AboutScreen"
                 component={AboutScreen}
@@ -33,6 +39,10 @@ export default () => {
             <Drawer.Screen 
                 name="SearchScreen"
                 component={SearchScreen}
+            />
+            <Drawer.Screen 
+                name="PostAdScreen"
+                component={PostAdScreen}
             />
         </Drawer.Navigator>
     )

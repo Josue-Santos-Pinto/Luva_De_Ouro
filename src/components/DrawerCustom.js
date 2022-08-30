@@ -65,7 +65,7 @@ export default (props) => {
 
     const menus = [
         {title: 'Anúncios', icon: 'home', screen: 'HomeScreen' },
-        {title: 'Inserir Anúncio', icon: 'pencil', screen: 'AdScreen' },
+        {title: 'Inserir Anúncio', icon: 'pencil', screen: 'PostAdScreen' },
         {title: 'Notificação', icon: 'bell-o', screen: 'NotificationScreen' },
         {title: 'Chat', icon: 'wechat', screen: 'ChatScreen' },
         {title: 'Favoritos', icon: 'heart-o', screen: 'FavScreen' },
