@@ -26,6 +26,7 @@ export default () => {
                     <C.ItemField 
                         value={title}
                         onChangeText={(e)=>setTitle(e)}
+                        placeholder='Ex: Tinta Suvinil'
                     />
                 </C.NewItemInfo>
                 <C.NewItemInfo>
@@ -34,6 +35,7 @@ export default () => {
                         value={desc}
                         onChangeText={(e)=>setDesc(e)}
                         multiline={true}
+                        placeholder='Ex: Tinta cor branca semi nova 3L'
                     />
                 </C.NewItemInfo>
                 <C.NewItemInfo>
@@ -60,12 +62,12 @@ export default () => {
                     visible={modal}
                 >
                     <C.BackButton onPress={()=>setModal(false)}>
-                        <FontAwesome name="arrow-left" size={20} color='#000' />
+                        <FontAwesome name="arrow-left" size={20} color='#333' />
                     </C.BackButton>
-                    <C.CategoryButton>
-                        <C.CategoryText>Category name</C.CategoryText>
-                        <FontAwesome name="arrow-right" size={24} color='#DDD'/>
-                    </C.CategoryButton>
+                    <C.CategoryListButton>
+                        <C.CategoryListText>Category name</C.CategoryListText>
+                        <FontAwesome name="arrow-right" size={24} color='#000'/>
+                    </C.CategoryListButton>
 
                 </Modal>
             </C.Scroll>

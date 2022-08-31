@@ -51,7 +51,9 @@ export default {
         border-bottom-width: 2px;
         border-color: #DDD;
     `,
-    CategoryText: styled.Text``,
+    CategoryText: styled.Text`
+        color: #bbb;
+    `,
     ItemFieldCep: styled.TextInput`
         width: 50%;
         height: 40px;
@@ -78,5 +80,17 @@ export default {
         font-size: 15px;
         color: #FFF;
     `,
-    BackButton: styled.TouchableOpacity``
+    BackButton: styled.TouchableOpacity`
+        margin: 15px;
+    `,
+    CategoryListButton: styled.TouchableOpacity`
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom-width: 2px;
+        border-color: #DDD;
+`,
+    CategoryListText: styled.Text`
+        color: #000;
+`,
 }

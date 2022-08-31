@@ -47,7 +47,7 @@ export default () => {
                         <C.ItemValue>0000000000</C.ItemValue>
                     </C.ItemArea>
                     <C.ItemArea>
-                        <C.Desc>Municipio</C.Desc>
+                        <C.Desc>Cidade</C.Desc>
                         <C.ItemValue>{local}</C.ItemValue>
                     </C.ItemArea>
                     <C.ItemArea>
