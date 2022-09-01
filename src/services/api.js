@@ -4,21 +4,22 @@ const http = axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com'
 })
 
+
 export const api = {
     getAlbums: async () => {
-        let response = await http.get('/albums')
+        let response = await http('/albums')
         return response.data
     },
-    getAlbum: async (id) => {
-        let response = await http.get(`/albums/${id}`)
+    getAlbum: async () => {
+        let response = await http(`/albums/1`)
         return response.data
     },
-    getPhotosFromAlbum: async (id) => {
-        let response = await http.get(`/albums/${id}/photos`);
+    getPhotosFromAlbum: async () => {
+        let response = await http(`/albums/1/photos`);
         return response.data
     },
     getPhoto: async (id) => {
-        let response = await http.get(`/photos/${id}`);
+        let response = await http(`/photos/${id}`);
         return response.data
     }
 }

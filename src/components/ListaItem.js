@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 
 const Item = styled.TouchableOpacity`
     flex-direction: row;
+    width: 100%;
     margin-bottom: 5px;
     border-top-width: 1px;
     border-bottom-width: 1px;
@@ -21,17 +22,17 @@ const Photo = styled.Image`
 `
 const TextArea = styled.View`
     flex-direction: column;
-    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
 `
 const Titulo = styled.Text`
-    font-size: 20px;
-    margin-left: 15px;
-    margin-top: 15px;
+    font-size: 15px;
     color: #000;
+    width: 240px;
+    min-height: 50px;
 `
 const Price = styled.Text`
     font-size: 20px;
-    margin: 15px 10px;
     padding: 20px 0;
 `
 const Local = styled.Text``
@@ -40,20 +41,28 @@ export default (props) => {
 
     const navigation = useNavigation()
 
+    const id = props.data.id
+    const photos = props.data.thumbnailUrl
+    const bigPhoto = props.data.url
+    const title = props.data.title
+    const price = 55.2
+    const local = 'aldeia'
+    /*
     const photos = props.data.photos[0]
     const productName = props.data.productName
     const price = props.data.price
     const local = props.data.local
     const userName = props.data.userName
-
+    */
+   
 
     return (
-        <Item onPress={()=>navigation.navigate('ProductScreen',{photos,productName,price,local,userName})}>
+        <Item onPress={()=>navigation.navigate('ProductScreen',{id,bigPhoto,title,price,local})}>
            
                 <ItemArea>
-                    <Photo source={photos} resizeMode='cover' />
+                    <Photo source={{uri:photos}} resizeMode='cover' />
                     <TextArea>
-                        <Titulo>{productName}</Titulo>
+                        <Titulo>{title}</Titulo>
                         <Price>R$ {parseFloat(price).toFixed(2)}</Price>
                         <Local>{local}</Local>
                     </TextArea>

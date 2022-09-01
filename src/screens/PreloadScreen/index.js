@@ -17,7 +17,7 @@ export default () => {
             index: 1,
             routes:[{name: 'LoginScreen'}]
         })
-      },1000)
+      },500)
     },[])
 
     return (

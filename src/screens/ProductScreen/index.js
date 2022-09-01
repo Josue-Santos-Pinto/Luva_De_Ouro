@@ -1,19 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect,useState } from "react";
 import styled from "styled-components/native";
+import { api } from "../../services/api";
 import { useRoute } from "@react-navigation/native";
 import C from './style'
 
 
 export default () => {
     const route = useRoute()
+    
 
+    const id = route.params.id
+    const title = route.params.title
+    const bigPhoto = route.params.bigPhoto
+    const price = route.params.price
+    const local = route.params.local
+    /*
     const productName = route.params.productName
     const photos = route.params.photos
     const local = route.params.local
     const price = route.params.price
     const userName = route.params.userName
-    
+    */
 
+   
     
 
     return(
@@ -26,13 +35,13 @@ export default () => {
             <C.Scroll>
                 
                 <C.Image 
-                    source={photos}
+                    source={{uri: bigPhoto}}
                     resizeMode='contain'
                 />
                 
                 <C.ItemTitle>
                     <C.Price>R$: {parseFloat(price).toFixed(2)}</C.Price>
-                    <C.TextTitle>{productName}</C.TextTitle>                      
+                    <C.TextTitle>{title}</C.TextTitle>                      
                 </C.ItemTitle>
                 <C.ItemDesc>
                     <C.Text>Descrição</C.Text>
@@ -59,7 +68,7 @@ export default () => {
                     <C.Text>Anunciante</C.Text>
                     <C.ItemArea>
                         <C.Desc>Nome: </C.Desc>
-                        <C.ItemValue>{userName}</C.ItemValue>
+                        <C.ItemValue>{title}</C.ItemValue>
                     </C.ItemArea>
                 </C.Seller>
                 
