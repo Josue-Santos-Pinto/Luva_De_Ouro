@@ -21,5 +21,18 @@ export const api = {
     getPhoto: async (id) => {
         let response = await http(`/photos/${id}`);
         return response.data
+    },
+    getUser: async (id) => {
+        let response = await http(`/users`);
+        return response.data
+    },
+    addPhotoFile: async () => {
+        let formData = new FormData()
+        formData.append('photo',{
+            uri: file.uri,
+            type: file.type,
+            name: file.fileName
+        })
+        let response = await http.post(`/posts`);
     }
 }

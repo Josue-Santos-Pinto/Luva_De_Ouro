@@ -21,6 +21,7 @@ export default {
         border-width: 1px;
         border-color: #CCC;
         border-radius: 5px;
+        background-color: #FFF;
     `,
     Field: styled.TextInput`
         border-width: 1px;
@@ -34,7 +35,6 @@ export default {
     `,
     FieldPassword: styled.TextInput`
         width: 85%;
-        
         padding: 10px;
         color: #000;
         font-size: 15px;

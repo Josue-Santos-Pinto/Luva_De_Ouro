@@ -1,6 +1,10 @@
 import React,{useEffect, useState} from "react";
 import C from './style'
 
+import { useContext } from "react";
+
+import AuthContext from "../../contexts/authContext";
+
 import { useNavigation } from "@react-navigation/native";
 import {FontAwesome} from '@expo/vector-icons'
 import FakeApi from "../../Api/FakeApi";
@@ -8,9 +12,12 @@ import ListaItem from "../../components/ListaItem";
 
 export default () => {
 
+    const {loadAlbum,getPhotos,items} = useContext(AuthContext)
     const navigation = useNavigation()
-    const [list,setList] = useState(FakeApi)
+    const [list,setList] = useState(items)
     const [searchText,setSearchText] = useState('')
+
+    
 
    
 
@@ -42,10 +49,10 @@ export default () => {
             )
         })
         if(searchText === ''){
-            setList(FakeApi)
+            setList(items)
         } else {
-            setList(FakeApi.filter((item)=>{
-                if((item.productName.toLowerCase().indexOf(searchText.toLowerCase()) > -1)){
+            setList(items.filter((item)=>{
+                if((item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1)){
                     return true
                 } else {
                     return false

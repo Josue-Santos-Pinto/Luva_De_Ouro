@@ -1,26 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import C from './style'
 import {FontAwesome} from '@expo/vector-icons'
 import { Modal } from "react-native";
-
+import { Camera } from "expo-camera";
+import { useNavigation } from "@react-navigation/native";
+import { UserContext } from '../../contexts/userContext'
 
 export default () => {
 
+    const navigation = useNavigation()
+    const {photo} = useContext(UserContext)
 
     const [title,setTitle] = useState('')
     const [desc,setDesc] = useState('')
     const [modal,setModal] = useState(false)
     const [cep,setCep] = useState('')
+    const [photoList,setPhotoList] = useState([])
+    const [type,setType] = useState(Camera.Constants.Type.back)
+    const [hasPermission,setHasPermission] = useState(null)
+    const [openCamera,setOpenCamera] = useState(false)
+
+    
 
     return (
         <C.Container>
             <C.Scroll>
-                <C.AddPhotoArea>
-                    <C.AddPhoto>
-                        <FontAwesome name='camera' size={24} color='#000' />
-                        <C.Text>Adicionar Fotos</C.Text>
-                    </C.AddPhoto>
-                </C.AddPhotoArea>
+                
+                    <C.AddPhotoArea>
+                        {photo.length == 0 &&
+                        <C.AddPhoto onPress={()=>navigation.navigate('CameraScreen')}>
+                            <FontAwesome name='camera' size={24} color='#000' />
+                            <C.Text>Adicionar Fotos</C.Text>
+                        </C.AddPhoto>
+                        }
+                        {photo.length > 0 &&
+                            <C.Photo 
+                                source={{uri: photo}}
+                                resizeMode='cover'
+                            />
+                        }
+                    </C.AddPhotoArea>
+                
+                
+                    
                 <C.NewItemInfo>
                     <C.ItemTitle>Titulo</C.ItemTitle>
                     <C.ItemField 
@@ -49,6 +71,7 @@ export default () => {
                     <C.ItemFieldCep 
                         value={cep}
                         onChangeText={(e)=>setCep(e)}
+                        keyboardType='numeric'
                     />
                 </C.NewItemInfo>
                 <C.SendButtonArea>

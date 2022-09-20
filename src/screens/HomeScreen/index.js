@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React,{useEffect, useState, useContext} from "react";
 import C from './style'
 
 import { useNavigation } from "@react-navigation/native";
@@ -6,10 +6,15 @@ import {FontAwesome} from '@expo/vector-icons'
 import FakeApi from "../../Api/FakeApi";
 import ListaItem from "../../components/ListaItem";
 import { api } from "../../services/api";
+import AuthContext from "../../contexts/authContext";
 
 export default () => {
 
+    const {loadAlbum,getPhotos,items} = useContext(AuthContext)
+    
+    
     const navigation = useNavigation()
+    /*
     const [items,setItems] = useState([])
     const [loading, setLoading] = useState(false)
     const [albumInfo,setAlbumInfo] = useState({id: 0,title: '',userId: 0})
@@ -28,7 +33,7 @@ export default () => {
         setItems(photo)
         setLoading(false)
     }
-   
+   */
 
 
     useEffect(()=>{

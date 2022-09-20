@@ -93,4 +93,9 @@ export default {
     CategoryListText: styled.Text`
         color: #000;
 `,
+    View: styled.View``,
+    Photo: styled.Image`
+        width: 100%;
+        height: 100%;
+    `
 }

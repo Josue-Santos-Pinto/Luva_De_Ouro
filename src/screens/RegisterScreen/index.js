@@ -18,6 +18,7 @@ export default () => {
 
     const [fullName,setFullName] = useState('')
     const [email, setEmail] = useState('')
+    const [cep,setCep] = useState('')
     const [password, setPassword] = useState('')
     const [hidePass,setHidePass] = useState(true)
     const [confirmHidePass,setConfirmHidePass] = useState(true)
@@ -64,6 +65,12 @@ export default () => {
                 value={email}
                 onChangeText={(e)=>setEmail(e)}
                 keyboardType='email-address'
+            />
+            <C.Field 
+                placeholder='Digite seu CEP'
+                value={cep}
+                onChangeText={(e)=>setCep(e)}
+                keyboardType='number'
             />
             <C.InputArea>
              <C.FieldPassword 

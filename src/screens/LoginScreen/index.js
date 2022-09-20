@@ -3,13 +3,13 @@ import C from './style'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import {FontAwesome} from '@expo/vector-icons'
+import {api} from '../../services/api'
+import { useEffect } from "react";
 
 
 
 
 export default () => {
-
-   
 
   
 

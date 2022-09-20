@@ -6,7 +6,8 @@ import ProductScreen from "../screens/ProductScreen";
 import AboutScreen from "../screens/AboutScreen";
 import DrawerCustom from "../components/DrawerCustom";
 import SearchScreen from "../screens/SearchScreen";
-import PostAdScreen from "../screens/PostAdScreen";
+import PostAdScreen from '../screens/PostAdScreen'
+import CameraScreen from "../screens/CameraScreen";
 
 const Drawer = createDrawerNavigator()
 
@@ -43,6 +44,10 @@ export default () => {
             <Drawer.Screen 
                 name="PostAdScreen"
                 component={PostAdScreen}
+            />
+            <Drawer.Screen 
+                name="CameraScreen"
+                component={CameraScreen}
             />
         </Drawer.Navigator>
     )

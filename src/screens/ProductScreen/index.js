@@ -3,10 +3,12 @@ import styled from "styled-components/native";
 import { api } from "../../services/api";
 import { useRoute } from "@react-navigation/native";
 import C from './style'
+import UserContext from "../../contexts/userContext";
 
 
 export default () => {
     const route = useRoute()
+    const {name,city} = useContext(UserContext)
     
 
     const id = route.params.id
@@ -14,13 +16,7 @@ export default () => {
     const bigPhoto = route.params.bigPhoto
     const price = route.params.price
     const local = route.params.local
-    /*
-    const productName = route.params.productName
-    const photos = route.params.photos
-    const local = route.params.local
-    const price = route.params.price
-    const userName = route.params.userName
-    */
+  
 
    
     
@@ -53,7 +49,7 @@ export default () => {
                     <C.Text>Localização</C.Text>
                     <C.ItemArea>
                         <C.Desc>CEP</C.Desc>
-                        <C.ItemValue>0000000000</C.ItemValue>
+                        <C.ItemValue>0000000</C.ItemValue>
                     </C.ItemArea>
                     <C.ItemArea>
                         <C.Desc>Cidade</C.Desc>

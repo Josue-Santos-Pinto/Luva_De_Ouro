@@ -3,7 +3,7 @@ import { StatusBar } from "react-native";
 import C from './style'
 
 import { useNavigation } from "@react-navigation/native";
-import userReducer, { setToken, setUser } from "../../redux/reducers/userReducer";
+
 
 
 export default () => {
