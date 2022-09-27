@@ -97,5 +97,25 @@ export default {
     Photo: styled.Image`
         width: 100%;
         height: 100%;
+        z-index: 1;
+        object-fit: center;
+    `,
+    PhotoArea: styled.View`
+        flex-direction: row;
+        flex: 1;
+    `,
+    ChangePhoto: styled.TouchableOpacity`
+        width: 250px;
+        height: 100%;
+        background-color: #CCC;
+        justify-content: center;
+    `,
+    IconArea: styled.View`
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        margin-left: 15px;
+        justify-content: center;
+        align-items: center;
     `
 }

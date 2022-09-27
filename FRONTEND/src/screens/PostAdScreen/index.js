@@ -9,7 +9,7 @@ import { UserContext } from '../../contexts/userContext'
 export default () => {
 
     const navigation = useNavigation()
-    const {photo} = useContext(UserContext)
+    const {photo, getPhoto} = useContext(UserContext)
 
     const [title,setTitle] = useState('')
     const [desc,setDesc] = useState('')
@@ -20,6 +20,12 @@ export default () => {
     const [hasPermission,setHasPermission] = useState(null)
     const [openCamera,setOpenCamera] = useState(false)
 
+    const ChangePhoto = () => {
+        photo = []
+        getPhoto('')
+        navigation.navigate('CameraScreen')
+        console.log(photo)
+    }
     
 
     return (
@@ -34,10 +40,18 @@ export default () => {
                         </C.AddPhoto>
                         }
                         {photo.length > 0 &&
+                        <C.PhotoArea>
                             <C.Photo 
                                 source={{uri: photo}}
                                 resizeMode='cover'
                             />
+                            <C.ChangePhoto onPress={()=>ChangePhoto}>
+                                <C.IconArea>
+                                    <FontAwesome name='camera' size={24} color='#000' />
+                                    <C.Text>Trocar Foto</C.Text>
+                                </C.IconArea>
+                            </C.ChangePhoto>
+                        </C.PhotoArea>
                         }
                     </C.AddPhotoArea>
                 
