@@ -6,6 +6,7 @@ import PreloadScreen from "../screens/PreloadScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 
+
 const Stack = createStackNavigator()
 
 export default () => {
@@ -34,6 +35,7 @@ export default () => {
                     }
                 }} 
             />
+            
             <Stack.Screen
                 name="MainDrawer"
                 component={MainDrawer}

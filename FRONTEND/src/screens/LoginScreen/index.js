@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import C from './style'
 import { useNavigation } from "@react-navigation/native";
-import { useSelector, useDispatch } from "react-redux";
+
 import {FontAwesome} from '@expo/vector-icons'
-import {api} from '../../services/api'
-import { useEffect } from "react";
+import api from '../../services/api'
+import { useStateValue } from "../../contexts/StateContext";
 
 
 
@@ -15,30 +15,45 @@ export default () => {
 
     const navigation = useNavigation()
    
+    const [context, dispatch] = useStateValue()
 
-    const [email, setEmail] = useState('')
+    const [cpf, setCpf] = useState('')
     const [password, setPassword] = useState('')
 
     const [hidePass,setHidePass] = useState(true)
     
     
+    const handleLoginButton = async () => {
 
-   /* const handleLoginButton = async (e) => {
-        e.preventDefault()
-        setDisabled(true)
-        const json = await api.login(email, password)
-        if(json.error){
-            setError(json.error)
+        if(cpf && password){
+            let result = await api.login(cpf,password)
+            if(result.error === ''){
+
+                dispatch({
+                    type: 'setToken',
+                    payload: {
+                      token: result.token
+                    }
+                })
+
+                dispatch({
+                    type:'setUser',
+                    payload:{
+                        user: result.user
+                    }
+                })
+
+                navigation.reset({
+                    index: 1,
+                    routes:[{name: 'MainDrawer'}]
+                  })
+            } else {
+                alert(result.error)
+            }
         } else {
-            doLogin(json.token, rememberPassword)
-            window.location.href = '/'
+            alert('Preencha os Campos')
         }
-    } */
-    const handleLoginButton = () => {
-      navigation.reset({
-        index: 1,
-        routes:[{name: 'MainDrawer'}]
-      })
+      
     }
     const handleRegisterButton = () => {
         navigation.navigate('RegisterScreen')
@@ -53,9 +68,9 @@ export default () => {
             />
             <C.Field 
                 placeholder='Digite seu e-mail'
-                value={email}
-                onChangeText={(e)=>setEmail(e)}
-                keyboardType='email-address'
+                value={cpf}
+                onChangeText={(e)=>setCpf(e)}
+                keyboardType='email-adress'
             />
             <C.InputArea>
              <C.FieldPassword 

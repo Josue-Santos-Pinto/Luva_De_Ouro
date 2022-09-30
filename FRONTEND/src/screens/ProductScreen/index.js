@@ -1,6 +1,6 @@
 import React, { useContext,useEffect,useState } from "react";
 import styled from "styled-components/native";
-import { api } from "../../services/api";
+import  api  from "../../services/api";
 import { useRoute } from "@react-navigation/native";
 import C from './style'
 import UserContext from "../../contexts/userContext";

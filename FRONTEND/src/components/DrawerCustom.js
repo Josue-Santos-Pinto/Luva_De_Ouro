@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 import {FontAwesome} from '@expo/vector-icons'
+import api from  '../services/api'
+import { useStateValue } from "../contexts/StateContext";
 
     const DrawerArea = styled.View`
         flex: 1;
@@ -62,6 +64,7 @@ const MenuButtonText = styled.Text`
 export default (props) => {
 
     const navigation = useNavigation()
+    const [context,dispatch] = useStateValue()
 
     const menus = [
         {title: 'Anúncios', icon: 'home', screen: 'HomeScreen' },
@@ -73,7 +76,8 @@ export default (props) => {
 
     ]
    
-    const handleLogoutButton = () => {
+    const handleLogoutButton = async () => {
+        await api.logout()
         navigation.reset({
             index: 1,
             routes: [{name: 'LoginScreen'}]   
@@ -89,8 +93,8 @@ export default (props) => {
                         <FontAwesome name="user" size={25} color='#000' />
                     </DrawerPerfilImgArea>
                     <DrawerPerfilInfo>
-                        <DrawerPerfilName>Josué</DrawerPerfilName>
-                        <DrawePerfilEmail>1234@gmail.com</DrawePerfilEmail>
+                        <DrawerPerfilName>{context.user.user.name}</DrawerPerfilName>
+                        <DrawePerfilEmail>{context.user.user.email}</DrawePerfilEmail>
                     </DrawerPerfilInfo>
                 </DrawerPerfilItems>
             </DrawerPerfilArea>

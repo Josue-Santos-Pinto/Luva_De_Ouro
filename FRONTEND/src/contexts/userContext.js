@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React,{ useState, createContext} from "react";
 import { useEffect } from "react";
-import { api } from "../services/api";
+import  api  from "../services/api";
 
 
 

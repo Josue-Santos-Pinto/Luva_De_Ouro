@@ -3,6 +3,8 @@ import C from './style'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import {FontAwesome} from '@expo/vector-icons'
+import api from "../../services/api";
+import { useStateValue } from "../../contexts/StateContext";
 
 
 
@@ -14,11 +16,12 @@ export default () => {
   
 
     const navigation = useNavigation()
+    const [context,dispatch] = useStateValue()
    
 
-    const [fullName,setFullName] = useState('')
+    const [name,setName] = useState('')
     const [email, setEmail] = useState('')
-    const [cep,setCep] = useState('')
+    const [cpf,setCpf] = useState('')
     const [password, setPassword] = useState('')
     const [hidePass,setHidePass] = useState(true)
     const [confirmHidePass,setConfirmHidePass] = useState(true)
@@ -26,23 +29,37 @@ export default () => {
     
     
 
-   /* const handleLoginButton = async (e) => {
-        e.preventDefault()
-        setDisabled(true)
-        const json = await api.login(email, password)
-        if(json.error){
-            setError(json.error)
-        } else {
-            doLogin(json.token, rememberPassword)
-            window.location.href = '/'
-        }
-    } */
 
-    const handleRegisterButton = () => {
-        if(password === confirmPassword){
-            navigation.navigate('LoginScreen')
+    const handleRegisterButton = async () => {
+
+        if(name && email && cpf && password && confirmPassword){
+            let result = await api.register(name,email,cpf,password,confirmPassword)
+            if(result.error === ''){
+
+                dispatch({
+                    type: 'setToken',
+                    payload: {
+                      token: result.token
+                    }
+                })
+
+                dispatch({
+                    type:'setUser',
+                    payload:{
+                        user: result.user
+                    }
+                })
+
+                navigation.reset({
+                    index: 1,
+                    routes:[{name: 'MainDrawer'}]
+                  })
+
+            } else {
+                alert(result.error)
+            }
         } else {
-            alert('As senhas precisam ser iguais')
+            alert("Preencha os Campos")
         }
         
     }
@@ -50,14 +67,11 @@ export default () => {
     return (
         <C.Container>
             
-            <C.Logo 
-                source={require('../../assets/logo.png')}
-                resizeMode='contain'
-            />
+           
             <C.Field 
                 placeholder='Digite seu nome completo'
-                value={fullName}
-                onChangeText={(e)=>setFullName(e)}
+                value={name}
+                onChangeText={(e)=>setName(e)}
                 keyboardType='email-address'
             />
             <C.Field 
@@ -68,8 +82,8 @@ export default () => {
             />
             <C.Field 
                 placeholder='Digite seu CEP'
-                value={cep}
-                onChangeText={(e)=>setCep(e)}
+                value={cpf}
+                onChangeText={(e)=>setCpf(e)}
                 keyboardType='number'
             />
             <C.InputArea>
