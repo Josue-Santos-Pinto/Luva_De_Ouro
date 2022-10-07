@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import {FontAwesome} from '@expo/vector-icons'
 import api from  '../services/api'
 import { useStateValue } from "../contexts/StateContext";
+import { useState } from "react";
 
     const DrawerArea = styled.View`
         flex: 1;
@@ -65,6 +66,7 @@ export default (props) => {
 
     const navigation = useNavigation()
     const [context,dispatch] = useStateValue()
+    const [user,setUser] = useState()
 
     const menus = [
         {title: 'Anúncios', icon: 'home', screen: 'HomeScreen' },
@@ -75,6 +77,14 @@ export default (props) => {
         {title: 'Minha Conta', icon: 'user', screen: 'UserScreen' }
 
     ]
+    useEffect(()=>{
+        const getUser = async () => {
+            let result = await api.getUser()
+            setUser(result)
+            console.log(result)
+        }
+        getUser()
+    },[])
    
     const handleLogoutButton = async () => {
         await api.logout()
@@ -93,8 +103,8 @@ export default (props) => {
                         <FontAwesome name="user" size={25} color='#000' />
                     </DrawerPerfilImgArea>
                     <DrawerPerfilInfo>
-                        <DrawerPerfilName>{context.user.user.name}</DrawerPerfilName>
-                        <DrawePerfilEmail>{context.user.user.email}</DrawePerfilEmail>
+                        <DrawerPerfilName>{context.user.name}</DrawerPerfilName>
+                        <DrawePerfilEmail>{context.user.email}</DrawePerfilEmail>
                     </DrawerPerfilInfo>
                 </DrawerPerfilItems>
             </DrawerPerfilArea>

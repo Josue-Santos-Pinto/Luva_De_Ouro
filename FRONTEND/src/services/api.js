@@ -3,6 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const products = 'https://jsonplaceholder.typicode.com'
 const baseURL = 'https://api.b7web.com.br/devcond/api'
+const localURL = 'http://10.0.2.2:5000'
+
 
 const request = async (method,endpoint,params,token=null) => {
     method = method.toLowerCase()
@@ -32,6 +34,10 @@ const request = async (method,endpoint,params,token=null) => {
 }
 
 
+
+//suporte.b7web@gmail.com.br
+
+
 export default {
     getToken: async () => {
        return await AsyncStorage.getItem('token')
@@ -45,6 +51,15 @@ export default {
         let json = await request('post','/auth/login',{cpf,password})
         return json
     },
+    loginLocal: async (email,password) => {
+        let data = {
+            email,
+            password
+        }
+        let response = await axios.post(`${localURL}/user/signin`,data)
+        return response.data
+        
+    },
     logout: async () => {
         let token = await AsyncStorage.getItem('token')
         let json = await request('post','/auth/logout',{},token)
@@ -52,11 +67,39 @@ export default {
         await AsyncStorage.removeItem('property')
         return json
     },
-    register: async (name,email,cpf,password,password_confirm) => {
-        let json = await request('post','/auth/register',{name,email,cpf,password,password_confirm})
+    register: async (name,email,password,state) => {
+        let data = {
+            name,
+            email,
+            password,
+            state
+        }
+        let response = await axios.post(`${localURL}/user/signup`,data)
+        return response
+    },
+    getUser: async () => {
+        let response = await axios.get(`${localURL}/user/me`)
+        return response.data
+    },
+    addPhoto: async (file) => {
+        let token = await AsyncStorage.getItem('token')
+        let formData = new FormData()
+        formData.append('photo',{
+            uri: file.uri,
+            type: file.type,
+            name: file.fileName
+        })
+        let req = await fetch(`${baseURL}/warning/file`,{
+            method: 'POST',
+            headers: {
+                'Content-Type':'multipart/form-data',
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        })
+        let json = await req.json()
         return json
     },
-
 
 
 

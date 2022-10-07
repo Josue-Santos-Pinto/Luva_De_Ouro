@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import {FontAwesome} from '@expo/vector-icons'
 import api from '../../services/api'
 import { useStateValue } from "../../contexts/StateContext";
+import { useEffect } from "react";
 
 
 
@@ -17,17 +18,19 @@ export default () => {
    
     const [context, dispatch] = useStateValue()
 
-    const [cpf, setCpf] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const [hidePass,setHidePass] = useState(true)
     
+
     
     const handleLoginButton = async () => {
 
-        if(cpf && password){
-            let result = await api.login(cpf,password)
-            if(result.error === ''){
+        if(email && password){
+            let result = await api.loginLocal(email,password)
+            console.log(result)
+            if(result.error === undefined){
 
                 dispatch({
                     type: 'setToken',
@@ -48,7 +51,7 @@ export default () => {
                     routes:[{name: 'MainDrawer'}]
                   })
             } else {
-                alert(result.error)
+                    alert(result.error)        
             }
         } else {
             alert('Preencha os Campos')
@@ -68,8 +71,8 @@ export default () => {
             />
             <C.Field 
                 placeholder='Digite seu e-mail'
-                value={cpf}
-                onChangeText={(e)=>setCpf(e)}
+                value={email}
+                onChangeText={(e)=>setEmail(e)}
                 keyboardType='email-adress'
             />
             <C.InputArea>

@@ -25,28 +25,29 @@ export default () => {
     const [password, setPassword] = useState('')
     const [hidePass,setHidePass] = useState(true)
     const [confirmHidePass,setConfirmHidePass] = useState(true)
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [state, setState] = useState('')
     
     
 
 
     const handleRegisterButton = async () => {
 
-        if(name && email && cpf && password && confirmPassword){
-            let result = await api.register(name,email,cpf,password,confirmPassword)
-            if(result.error === ''){
+        if(name && email && password && state){
+            let result = await api.register(name,email,password,state)
+            console.log(result.data.email)
+            if(result.error === undefined || result.error === ''){
 
                 dispatch({
                     type: 'setToken',
                     payload: {
-                      token: result.token
+                      token: result.data.token
                     }
                 })
 
                 dispatch({
                     type:'setUser',
                     payload:{
-                        user: result.user
+                        user: result.email
                     }
                 })
 
@@ -55,6 +56,7 @@ export default () => {
                     routes:[{name: 'MainDrawer'}]
                   })
 
+                  console.log(result.data.token)
             } else {
                 alert(result.error)
             }
@@ -80,12 +82,7 @@ export default () => {
                 onChangeText={(e)=>setEmail(e)}
                 keyboardType='email-address'
             />
-            <C.Field 
-                placeholder='Digite seu CEP'
-                value={cpf}
-                onChangeText={(e)=>setCpf(e)}
-                keyboardType='number'
-            />
+            
             <C.InputArea>
              <C.FieldPassword 
                 placeholder='Digite sua senha'
@@ -100,10 +97,10 @@ export default () => {
 
             <C.InputArea>
              <C.FieldPassword 
-                placeholder='Confirme sua senha'
+                placeholder='digite seu estado'
                 secureTextEntry={confirmHidePass}
-                value={confirmPassword}
-                onChangeText={(e)=>setConfirmPassword(e)}
+                value={state}
+                onChangeText={(e)=>setState(e)}
             />
             <C.IconShowPassword onPress={()=>setConfirmHidePass(!confirmHidePass)}>
                 <FontAwesome name={confirmHidePass === true ? 'eye': 'eye-slash'} size={24} color='#000' />

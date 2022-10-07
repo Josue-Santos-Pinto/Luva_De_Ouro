@@ -24,7 +24,7 @@ export default () => {
 
             if(result.error === ''){
 
-              dispatch({type:'setUser',payload:{user: result.user}})
+              dispatch({type:'setUser',payload:{user: result.email}})
 
               navigation.reset({
                 index: 1,
