@@ -7,15 +7,18 @@ import FakeApi from "../../Api/FakeApi";
 import ListaItem from "../../components/ListaItem";
 import  api  from "../../services/api";
 import AuthContext from "../../contexts/authContext";
+import { useStateValue } from "../../contexts/StateContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default () => {
 
     const {loadAlbum,getPhotos,items} = useContext(AuthContext)
+    const [context, dispatch] = useStateValue()
     
     
     const navigation = useNavigation()
    
-
+    
 
     useEffect(()=>{
         navigation.setOptions({

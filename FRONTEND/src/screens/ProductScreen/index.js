@@ -1,15 +1,20 @@
 import React, { useContext,useEffect,useState } from "react";
 import styled from "styled-components/native";
 import  api  from "../../services/api";
-import { useRoute } from "@react-navigation/native";
+import { Link, useRoute } from "@react-navigation/native";
+import { Alert, Linking } from "react-native";
 import C from './style'
 import UserContext from "../../contexts/userContext";
+import { FontAwesome} from '@expo/vector-icons'
 
 
 export default () => {
     const route = useRoute()
     const {name,city} = useContext(UserContext)
     
+    const url = 'https://github.com/vishal-pawar'
+    const contact = '+55022996102410'
+    const message = 'Oi, gostaria de saber mais sobre o produto'
 
     const id = route.params.id
     const title = route.params.title
@@ -17,17 +22,21 @@ export default () => {
     const price = route.params.price
     const local = route.params.local
   
+    const openURL = async (url) => {
+        const isSupported = await Linking.canOpenURL(url)
+        if(isSupported){
+            await Linking.openURL(url)
+        } else {
+            Alert.alert(`Problemas ao abrir: ${url}`)
+        }
+    }
 
    
     
 
     return(
         <C.Item>
-            <C.ButtonArea>
-                <C.ChatButton>
-                    <C.ChatText>Chat</C.ChatText>
-                </C.ChatButton>
-            </C.ButtonArea>
+
             <C.Scroll>
                 
                 <C.Image 
@@ -67,6 +76,15 @@ export default () => {
                         <C.ItemValue>{title}</C.ItemValue>
                     </C.ItemArea>
                 </C.Seller>
+
+                <C.ButtonArea>
+                    <C.ChatButton onPress={()=>{
+                        Linking.openURL(`whatsapp://send?phone=${contact}&text=${message}`)
+                        }}>
+                        <FontAwesome name="whatsapp" size={24} color='#FFF'/>
+                        <C.ChatText>Whatsapp</C.ChatText>
+                    </C.ChatButton>
+                </C.ButtonArea>
                 
                 </C.Scroll>
 

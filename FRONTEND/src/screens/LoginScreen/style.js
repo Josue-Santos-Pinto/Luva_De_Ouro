@@ -43,7 +43,7 @@ export default {
         align-items: center;
     `,
     ButtonArea: styled.TouchableOpacity`
-        background-color: #99A799;
+        background-color: #000;
         padding: 12px;
         justify-content: center;
         align-items: center;

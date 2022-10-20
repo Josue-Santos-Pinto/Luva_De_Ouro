@@ -1,9 +1,8 @@
-const { deepStrictEqual } = require('assert');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const modelSchema = new mongoose.Schema({
-    name: String,
+    idUser: String,
     state: String,
     category: String,
     images: [Object],
@@ -13,11 +12,10 @@ const modelSchema = new mongoose.Schema({
     priceNegotiable: Boolean,
     description: String,
     views: Number,
-    status: String,
+    status: String
 });
 
 const modelName = 'Ad';
-
 
 if(mongoose.connection && mongoose.connection.models[modelName]) {
     module.exports = mongoose.connection.models[modelName];

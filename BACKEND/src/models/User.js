@@ -16,13 +16,3 @@ if(mongoose.connection && mongoose.connection.models[modelName]) {
 } else {
     module.exports = mongoose.model(modelName, modelSchema);
 }
-
-/*
-users 
-- _id
-- name
-- email
-- state
-- passwordHash
-- token
-*/

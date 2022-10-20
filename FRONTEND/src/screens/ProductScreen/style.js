@@ -57,19 +57,22 @@ Item: styled.View`
      height: 50px;
      justify-content: center;
      align-items: center;
-     position: absolute;
-     bottom: 10px;
  `,
   ChatButton: styled.TouchableOpacity`
-     width: 80px;
-     height: 30px;
-     border-radius: 10px;
-     background-color: #000;
+     width: 60%;
+     height: 40px;
+     border-radius: 5px;
+     margin: auto 10px;
+     background-color: #34af23;
      justify-content: center;
      align-items: center;
+     flex-direction: row;
  `,
   ChatText: styled.Text`
      color: #FFF;
+     font-weight: bold;
+     font-size: 20px;
+     margin-left: 10px
  `
  
 

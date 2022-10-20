@@ -2,40 +2,12 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const products = 'https://jsonplaceholder.typicode.com'
-const baseURL = 'https://api.b7web.com.br/devcond/api'
+
 const localURL = 'http://10.0.2.2:5000'
-
-
-const request = async (method,endpoint,params,token=null) => {
-    method = method.toLowerCase()
-    let fullUrl = `${baseURL}${endpoint}`
-    let body = null
-
-    switch(method){
-        case 'get':
-            let queryString = URLSearchParams(params).toString()
-            fullUrl += `?${queryString}`
-        break
-        case 'post':
-        case 'put':
-        case 'delete':
-            body = JSON.stringify(params)
-        break
-    }
-
-    let headers = {'Content-type':'application/json'}
-    if(token){
-        headers.Authorization = `Bearer ${token}`
-    }
-
-    let req = await fetch(fullUrl,{method,headers,body})
-    let json = await req.json()
-    return json
-}
+const onlineURL = 'http://192.168.1.107:5000'
 
 
 
-//suporte.b7web@gmail.com.br
 
 
 export default {
@@ -44,28 +16,21 @@ export default {
     },
     validateToken: async () => {
         let token = await AsyncStorage.getItem('token')
-        let json = await request('post','/auth/validate',{},token)
-        return json
-    },
-    login: async (cpf,password) => {
-        let json = await request('post','/auth/login',{cpf,password})
-        return json
+        let response = await axios.get(`${onlineURL}/user/me`,token)
+        return response.data
     },
     loginLocal: async (email,password) => {
         let data = {
             email,
             password
         }
-        let response = await axios.post(`${localURL}/user/signin`,data)
+        let response = await axios.post(`${onlineURL}/user/signin`,data)
         return response.data
         
     },
     logout: async () => {
-        let token = await AsyncStorage.getItem('token')
-        let json = await request('post','/auth/logout',{},token)
-        await AsyncStorage.removeItem('token')
-        await AsyncStorage.removeItem('property')
-        return json
+        let token = await AsyncStorage.removeItem('token')
+        return token
     },
     register: async (name,email,password,state) => {
         let data = {
@@ -74,32 +39,29 @@ export default {
             password,
             state
         }
-        let response = await axios.post(`${localURL}/user/signup`,data)
-        return response
-    },
-    getUser: async () => {
-        let response = await axios.get(`${localURL}/user/me`)
+        let response = await axios.post(`${onlineURL}/user/signup`,data)
         return response.data
     },
-    addPhoto: async (file) => {
+    getUser: async () => {
         let token = await AsyncStorage.getItem('token')
-        let formData = new FormData()
-        formData.append('photo',{
-            uri: file.uri,
-            type: file.type,
-            name: file.fileName
-        })
-        let req = await fetch(`${baseURL}/warning/file`,{
-            method: 'POST',
-            headers: {
-                'Content-Type':'multipart/form-data',
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        })
-        let json = await req.json()
-        return json
+        let response = await axios.get(`${onlineURL}/user/me?token=${token}`)
+        return response.data
     },
+    postNewAd: async (title,price,priceneg,desc,cat,photo) => {
+        let token = await AsyncStorage.getItem('token')
+        let data = {
+            title,
+            price,
+            priceneg,
+            desc,
+            cat,
+            photo,
+            token
+        }
+        let response = await axios.post(`${onlineURL}/ad/add`,data)
+        return response.data
+    },
+    
 
 
 

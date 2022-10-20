@@ -1,4 +1,4 @@
-const express = require(`express`);
+const express = require('express');
 const router = express.Router();
 
 const Auth = require('./middlewares/Auth');
@@ -11,7 +11,7 @@ const UserController = require('./controllers/UserController');
 const AdsController = require('./controllers/AdsController');
 
 router.get('/ping', (req, res)=>{
-    res.json({pong:true});
+    res.json({pong: true});
 });
 
 router.get('/states', UserController.getStates);

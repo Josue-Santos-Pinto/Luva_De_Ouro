@@ -1,48 +1,148 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect,useRef, useContext } from "react";
 import C from './style'
-import {FontAwesome} from '@expo/vector-icons'
+import {FontAwesome,Ionicons} from '@expo/vector-icons'
 import { Modal } from "react-native";
 import { Camera } from "expo-camera";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { UserContext } from '../../contexts/userContext'
+import api from "../../services/api";
+import { useStateValue } from "../../contexts/StateContext";
 
 export default () => {
 
     const navigation = useNavigation()
-    const {photo, getPhoto} = useContext(UserContext)
+    const [context,dispatch] = useStateValue()
+
 
     const [title,setTitle] = useState('')
     const [desc,setDesc] = useState('')
     const [modal,setModal] = useState(false)
-    const [cep,setCep] = useState('')
-    const [photoList,setPhotoList] = useState([])
-    const [type,setType] = useState(Camera.Constants.Type.back)
+    const [price,setPrice] = useState('')
+    const [priceneg,setPriceneg] = useState(true)
+    const [cat,setCat] = useState('')
+    
     const [hasPermission,setHasPermission] = useState(null)
     const [openCamera,setOpenCamera] = useState(false)
 
-    const ChangePhoto = () => {
-        photo = []
-        getPhoto('')
-        navigation.navigate('CameraScreen')
-        console.log(photo)
+    const camRef = useRef(null)
+
+
+
+    const [image,setImage] = useState(null)
+    const [type,setType] = useState(Camera.Constants.Type.back)
+    
+    
+
+
+   
+
+    useEffect(()=>{
+        const permission = async () => {
+            const {status} = await Camera.requestCameraPermissionsAsync()
+            setHasPermission(status === 'granted')
+        }
+        permission()
+        
+        
+    },[])
+
+    useEffect(()=>{
+        console.log(image)
+    },[image])
+
+    if(hasPermission === null){
+        return <C.View/>
+    }
+    if(hasPermission === false){
+        return <C.Text>Acesso negado</C.Text>
+    }
+
+    const takePicture = async () => {
+        if(camRef){
+            const data = await camRef.current.takePictureAsync()
+            
+            
+            setImage(data.uri)
+               
+            setModal(false)
+            
+        }
+        
     }
     
+
+    const ChangePhoto = () => {
+  
+    }
+    const postAd = async () => {
+        console.log(priceneg)
+        if(title && price && desc && cat ){
+            let result = await api.postNewAd(title,price,priceneg,desc,cat, image)
+            
+            setTitle('')
+            setDesc('')
+            setPrice('')
+            setCat('')
+            console.log(result)
+        } else {
+            alert('Preencha todos os campos')
+        }
+    }
 
     return (
         <C.Container>
             <C.Scroll>
                 
                     <C.AddPhotoArea>
-                        {photo.length == 0 &&
-                        <C.AddPhoto onPress={()=>navigation.navigate('CameraScreen')}>
+                        {image === null &&
+                        <C.AddPhoto onPress={()=>setModal(true)}>
                             <FontAwesome name='camera' size={24} color='#000' />
                             <C.Text>Adicionar Fotos</C.Text>
                         </C.AddPhoto>
                         }
-                        {photo.length > 0 &&
+                        {image &&
+                        <C.PhotoItem>
+                            <C.PhotoArea>
+                                <C.Photo source={{uri: image}}/>
+                            </C.PhotoArea>
+                        </C.PhotoItem>
+                        }
+                        <Modal
+                            animationType="fade"
+                            transparent={false}
+                            visible={modal}
+                        >
+                            <Camera 
+                                style={{flex: 1}}
+                                type={type}
+                                ref={camRef}
+                            >
+                                
+                                <C.CameraButtons>
+
+                                    <C.CamButton 
+                                        onPress={()=>setType(
+                                        type === Camera.Constants.Type.back
+                                        ? Camera.Constants.Type.front
+                                        : Camera.Constants.Type.back 
+                                        )}
+                                    >
+                                        <Ionicons name="camera-reverse" size={40} color='#FFF' />
+                                    </C.CamButton>
+
+                                    <C.CamButton onPress={takePicture}>
+                                        <Ionicons name="camera" size={40} color='#FFF' />
+                                    </C.CamButton>
+
+                                </C.CameraButtons>
+                            </Camera>        
+
+                        </Modal>
+                      
+                        {context.photo != undefined &&
                         <C.PhotoArea>
                             <C.Photo 
-                                source={{uri: photo}}
+                                source={{uri: context.photo}}
                                 resizeMode='cover'
                             />
                             <C.ChangePhoto onPress={()=>ChangePhoto}>
@@ -76,37 +176,37 @@ export default () => {
                 </C.NewItemInfo>
                 <C.NewItemInfo>
                     <C.ItemTitle>Categoria</C.ItemTitle>
-                    <C.CategoryButton onPress={()=>setModal(true)}>
+                   {/* <C.CategoryButton onPress={()=>setModal(true)}>
                         <C.CategoryText>Selecione uma Categoria</C.CategoryText>
-                    </C.CategoryButton>
+                    </C.CategoryButton>*/}
+                    <C.ItemFieldDesc 
+                        value={cat}
+                        onChangeText={(e)=>setCat(e)}
+                        placeholder='Ex: car'
+                    />
                 </C.NewItemInfo>
                 <C.NewItemInfo>
-                    <C.ItemTitle>CEP</C.ItemTitle>
+                    <C.ItemTitle>Preço</C.ItemTitle>
                     <C.ItemFieldCep 
-                        value={cep}
-                        onChangeText={(e)=>setCep(e)}
+                        value={price}
+                        onChangeText={(e)=>setPrice(e)}
                         keyboardType='numeric'
                     />
                 </C.NewItemInfo>
+              {/*   <C.NewItemInfo style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <C.ItemTitle>Permitir negociação</C.ItemTitle>
+                   <C.PricenegArea>
+                    <C.PricenegButton onPress={()=>setPriceneg(!priceneg)} style={{backgroundColor: priceneg === true ? 'green':'#FFF'}} />
+                    
+                   </C.PricenegArea>
+                </C.NewItemInfo>
+                */}
                 <C.SendButtonArea>
-                    <C.SendButton >
+                    <C.SendButton onPress={postAd}>
                         <C.SendButtonText>Enviar</C.SendButtonText>
                     </C.SendButton>
                 </C.SendButtonArea>
-                <Modal 
-                    animationType="fade"
-                    transparent={false}
-                    visible={modal}
-                >
-                    <C.BackButton onPress={()=>setModal(false)}>
-                        <FontAwesome name="arrow-left" size={20} color='#333' />
-                    </C.BackButton>
-                    <C.CategoryListButton>
-                        <C.CategoryListText>Category name</C.CategoryListText>
-                        <FontAwesome name="arrow-right" size={24} color='#000'/>
-                    </C.CategoryListButton>
-
-                </Modal>
+               
             </C.Scroll>
         </C.Container>
     )

@@ -66,7 +66,7 @@ export default (props) => {
 
     const navigation = useNavigation()
     const [context,dispatch] = useStateValue()
-    const [user,setUser] = useState()
+    const [user,setUser] = useState([])
 
     const menus = [
         {title: 'Anúncios', icon: 'home', screen: 'HomeScreen' },
@@ -74,17 +74,9 @@ export default (props) => {
         {title: 'Notificação', icon: 'bell-o', screen: 'NotificationScreen' },
         {title: 'Chat', icon: 'wechat', screen: 'ChatScreen' },
         {title: 'Favoritos', icon: 'heart-o', screen: 'FavScreen' },
-        {title: 'Minha Conta', icon: 'user', screen: 'UserScreen' }
+        {title: 'Minha Conta', icon: 'user', screen: 'MyAccountScreen' }
 
     ]
-    useEffect(()=>{
-        const getUser = async () => {
-            let result = await api.getUser()
-            setUser(result)
-            console.log(result)
-        }
-        getUser()
-    },[])
    
     const handleLogoutButton = async () => {
         await api.logout()
@@ -93,6 +85,9 @@ export default (props) => {
             routes: [{name: 'LoginScreen'}]   
         })
     }
+    useEffect(()=>{
+        console.log(context)
+    },[])
 
     return (
         <DrawerArea>

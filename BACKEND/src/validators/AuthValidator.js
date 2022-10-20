@@ -1,11 +1,10 @@
-const { checkSchema, check } = require('express-validator');
+const { checkSchema } = require('express-validator');
 
 module.exports = {
     signup: checkSchema({
         name: {
             trim: true,
-            notEmpty: true,
-            isLength: {
+            isLength:{
                 options: { min: 2 }
             },
             errorMessage: 'Nome precisa ter pelo menos 2 caracteres'

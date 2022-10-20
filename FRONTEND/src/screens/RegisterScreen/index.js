@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {FontAwesome} from '@expo/vector-icons'
 import api from "../../services/api";
 import { useStateValue } from "../../contexts/StateContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
@@ -34,13 +35,12 @@ export default () => {
 
         if(name && email && password && state){
             let result = await api.register(name,email,password,state)
-            console.log(result.data.email)
+            console.log(result)
             if(result.error === undefined || result.error === ''){
-
                 dispatch({
                     type: 'setToken',
                     payload: {
-                      token: result.data.token
+                      token: result.token
                     }
                 })
 
@@ -55,8 +55,6 @@ export default () => {
                     index: 1,
                     routes:[{name: 'MainDrawer'}]
                   })
-
-                  console.log(result.data.token)
             } else {
                 alert(result.error)
             }
