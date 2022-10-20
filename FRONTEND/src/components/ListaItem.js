@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
+import { useEffect } from "react";
 
 const Item = styled.TouchableOpacity`
     flex-direction: row;
@@ -42,29 +43,22 @@ export default (props) => {
     const navigation = useNavigation()
 
     const id = props.data.id
-    const photos = props.data.thumbnailUrl
-    const bigPhoto = props.data.url
+    const image = props.data.image
     const title = props.data.title
-    const price = 55.2
-    const local = 'aldeia'
-    /*
-    const photos = props.data.photos[0]
-    const productName = props.data.productName
     const price = props.data.price
-    const local = props.data.local
-    const userName = props.data.userName
-    */
+
+    
    
 
     return (
-        <Item onPress={()=>navigation.navigate('ProductScreen',{id,bigPhoto,title,price,local})}>
+        <Item onPress={()=>navigation.navigate('ProductScreen',{id})}>
            
                 <ItemArea>
-                    <Photo source={{uri:photos}} resizeMode='cover' />
+                    <Photo source={{uri:image}} resizeMode='cover' />
                     <TextArea>
                         <Titulo>{title}</Titulo>
                         <Price>R$ {parseFloat(price).toFixed(2)}</Price>
-                        <Local>{local}</Local>
+                        
                     </TextArea>
                 </ItemArea>
            

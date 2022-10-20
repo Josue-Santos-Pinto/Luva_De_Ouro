@@ -100,7 +100,7 @@ module.exports = {
         res.json({id: info._id});
     },
     getList: async (req, res) => {
-        let { sort = 'asc', offset = 0, limit = 8, q, cat, state } = req.query;
+        let { sort = 'asc', offset = 0, limit = 100000, q, cat, state } = req.query;
         let filters = {status: true};
         let total = 0;
 

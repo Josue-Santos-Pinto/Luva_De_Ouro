@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const products = 'https://jsonplaceholder.typicode.com'
 
 const localURL = 'http://10.0.2.2:5000'
-const onlineURL = 'http://192.168.1.107:5000'
+const onlineURL = 'http://192.168.1.101:5000'
 
 
 
@@ -69,11 +69,12 @@ export default {
 
 
     getAlbums: async () => {
-        let response = await axios.get(`${products}/albums`)
+        let response = await axios.get(`${onlineURL}/ad/list`)
         return response.data
     },
-    getAlbum: async () => {
-        let response = await axios.get(`${products}/albums/1`)
+    getItem: async (id) => {
+        let token = await AsyncStorage.getItem('token')
+        let response = await axios.get(`${onlineURL}/ad/item?token=${token}&&id=${id}`)
         return response.data
     },
     getPhotosFromAlbum: async () => {

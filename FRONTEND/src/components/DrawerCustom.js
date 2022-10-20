@@ -85,9 +85,7 @@ export default (props) => {
             routes: [{name: 'LoginScreen'}]   
         })
     }
-    useEffect(()=>{
-        console.log(context)
-    },[])
+    
 
     return (
         <DrawerArea>

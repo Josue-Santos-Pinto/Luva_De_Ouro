@@ -8,19 +8,43 @@ import UserContext from "../../contexts/userContext";
 import { FontAwesome} from '@expo/vector-icons'
 
 
+
 export default () => {
     const route = useRoute()
-    const {name,city} = useContext(UserContext)
-    
-    const url = 'https://github.com/vishal-pawar'
+    const [category,setCategory] = useState('')
+    const [title,setTitle] = useState('')
+    const [date,setDate] = useState('')
+    const [desc,setDesc] = useState('')
+    const [images,setImages] = useState([])
+    const [price,setPrice] = useState(0)
+    const [priceNeg,setPriceNeg] = useState(false)
+    const [state,setState] = useState('')
+    const [userInfo,setUserInfo] = useState({})
+    const [views,setViews] = useState(0)
+
     const contact = '+55022996102410'
     const message = 'Oi, gostaria de saber mais sobre o produto'
 
     const id = route.params.id
-    const title = route.params.title
-    const bigPhoto = route.params.bigPhoto
-    const price = route.params.price
-    const local = route.params.local
+    
+    useEffect(()=>{
+        const getItem = async () => {
+            let response = await api.getItem(id)
+            setTitle(response.title)
+            setCategory(response.category.name)
+            setDate(response.dateCreated)
+            setDesc(response.description)
+            setImages(response.images)
+            setPrice(response.price)
+            setPriceNeg(response.priceNegotiable)
+            setState(response.stateName)
+            setUserInfo(response.userInfo)
+            setViews(response.views)
+        }
+        getItem()
+        
+    },[])
+    
   
     const openURL = async (url) => {
         const isSupported = await Linking.canOpenURL(url)
@@ -40,7 +64,7 @@ export default () => {
             <C.Scroll>
                 
                 <C.Image 
-                    source={{uri: bigPhoto}}
+                    source={{uri:images[0]}}
                     resizeMode='contain'
                 />
                 
@@ -50,30 +74,39 @@ export default () => {
                 </C.ItemTitle>
                 <C.ItemDesc>
                     <C.Text>Descrição</C.Text>
-                    <C.Desc>lorem Ipsun</C.Desc>
-                    <C.Desc>lorem Ipsun</C.Desc>
-                    <C.Desc>lorem Ipsun</C.Desc>
+                    <C.Desc>{desc}</C.Desc>
+                    <C.Desc>{date}</C.Desc>
+                    <C.Desc>{priceNeg}</C.Desc>
+                    <C.Desc>{category}</C.Desc>
                 </C.ItemDesc>
                 <C.ItemLocalization>
                     <C.Text>Localização</C.Text>
                     <C.ItemArea>
                         <C.Desc>CEP</C.Desc>
-                        <C.ItemValue>0000000</C.ItemValue>
+                        <C.ItemValue>{state}</C.ItemValue>
                     </C.ItemArea>
                     <C.ItemArea>
                         <C.Desc>Cidade</C.Desc>
-                        <C.ItemValue>{local}</C.ItemValue>
+                        <C.ItemValue>{state}</C.ItemValue>
                     </C.ItemArea>
                     <C.ItemArea>
                         <C.Desc>Bairro</C.Desc>
-                        <C.ItemValue>0000000000</C.ItemValue>
+                        <C.ItemValue>{state}</C.ItemValue>
                     </C.ItemArea>
                 </C.ItemLocalization>
                 <C.Seller>
                     <C.Text>Anunciante</C.Text>
                     <C.ItemArea>
                         <C.Desc>Nome: </C.Desc>
-                        <C.ItemValue>{title}</C.ItemValue>
+                        <C.ItemValue>{userInfo.name}</C.ItemValue>
+                    </C.ItemArea>
+                    <C.ItemArea>
+                        <C.Desc>Email: </C.Desc>
+                        <C.ItemValue>{userInfo.email}</C.ItemValue>
+                    </C.ItemArea>
+                    <C.ItemArea>
+                        <C.Desc>Telefone: </C.Desc>
+                        <C.ItemValue>{userInfo.email}</C.ItemValue>
                     </C.ItemArea>
                 </C.Seller>
 

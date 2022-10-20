@@ -12,11 +12,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default () => {
 
-    const {loadAlbum,getPhotos,items} = useContext(AuthContext)
+    
     const [context, dispatch] = useStateValue()
+    const [item,setItem] = useState()
     
     
     const navigation = useNavigation()
+
+    const loadAlbum = async () => {
+        let data = await api.getAlbums()
+        setItem(data.ads)
+    }
    
     
 
@@ -39,15 +45,14 @@ export default () => {
                 </C.ButtonsArea>
             )
         })
-        loadAlbum()
-        getPhotos()
+        loadAlbum()  
     },[])
 
 
     return (
         <C.Container>
             <C.ProductsList 
-                data={items}
+                data={item}
                 renderItem={({item,index})=><ListaItem data={item} />}
                 keyExtractor={(item)=>item.id}
             />
