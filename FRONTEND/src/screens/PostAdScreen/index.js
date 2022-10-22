@@ -1,160 +1,144 @@
 import React, { useState, useEffect,useRef, useContext } from "react";
 import C from './style'
 import {FontAwesome,Ionicons} from '@expo/vector-icons'
-import { Modal } from "react-native";
-import { Camera } from "expo-camera";
+import  Constants  from "expo-constants";
+import * as ImagePicker from 'expo-image-picker'
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { UserContext } from '../../contexts/userContext'
+import { Picker } from "@react-native-picker/picker";
+
 import api from "../../services/api";
 import { useStateValue } from "../../contexts/StateContext";
+import {TextInputMask} from 'react-native-masked-text'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default () => {
 
     const navigation = useNavigation()
     const [context,dispatch] = useStateValue()
 
+    
+
+    const [categories,setCategories] = useState([])
 
     const [title,setTitle] = useState('')
     const [desc,setDesc] = useState('')
+    const [imageSplit,setImageSplit] = useState('')
     const [modal,setModal] = useState(false)
     const [price,setPrice] = useState('')
-    const [priceneg,setPriceneg] = useState(true)
-    const [cat,setCat] = useState('')
+    const [priceNegotiable,setPriceNegotiable] = useState(false)
+    const [category,setCategory] = useState('')
+    const [error,setError] = useState('')
     
     const [hasPermission,setHasPermission] = useState(null)
     const [openCamera,setOpenCamera] = useState(false)
 
-    const camRef = useRef(null)
-
-
-
-    const [image,setImage] = useState(null)
-    const [type,setType] = useState(Camera.Constants.Type.back)
-    
-    
-
+    const [image,setImage] = useState('') 
+    const priceRef = useRef()
 
    
 
-    useEffect(()=>{
-        const permission = async () => {
-            const {status} = await Camera.requestCameraPermissionsAsync()
-            setHasPermission(status === 'granted')
+
+    const ImagePickerCall = async () => {
+        if(Constants.platform.ios){
+            const {status} = await ImagePicker.requestCameraPermissionsAsync()
+            if(status !== 'granted'){
+                alert('É necessário permitir o uso da camera para prosseguir')
+                return
+            }
         }
-        permission()
+
+       const data = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images
         
-        
+       })
+       if(data.cancelled){
+        return
+       }
+       if(!data.uri){
+        return
+       }
+       
+       setImage(data)
+
+    }
+    useEffect(()=>{
+        const getCategories = async () => {
+            const cats = await api.getCategories()
+            setCategories(cats.categories)
+        }
+        getCategories()
     },[])
 
+
     useEffect(()=>{
-        console.log(image)
-    },[image])
-
-    if(hasPermission === null){
-        return <C.View/>
-    }
-    if(hasPermission === false){
-        return <C.Text>Acesso negado</C.Text>
-    }
-
-    const takePicture = async () => {
-        if(camRef){
-            const data = await camRef.current.takePictureAsync()
-            
-            
-            setImage(data.uri)
-               
-            setModal(false)
-            
+        if(price != undefined){
+            const unmaskPrice = priceRef?.current.getRawValue()
+            console.log(price)
+            console.log(unmaskPrice)
         }
         
-    }
-    
+    },[price])
 
-    const ChangePhoto = () => {
-  
-    }
+    
+    
     const postAd = async () => {
-        console.log(priceneg)
-        if(title && price && desc && cat ){
-            let result = await api.postNewAd(title,price,priceneg,desc,cat, image)
-            
-            setTitle('')
-            setDesc('')
-            setPrice('')
-            setCat('')
-            console.log(result)
-        } else {
-            alert('Preencha todos os campos')
+        let errors = []
+        if(!title.trim()){
+            errors.push('Sem Titulo')
         }
+        if(!category || category == 'Selecione uma categoria'){
+            errors.push('Sem Categoria')
+        }
+        if(errors.length === 0){
+           
+            const fData = new FormData()
+            let token = await AsyncStorage.getItem('token')
+
+            fData.append('token',token)
+            fData.append('title',title)
+            fData.append('price',price)
+            fData.append('priceneg',priceNegotiable)
+            fData.append('cat',category)
+            fData.append('desc',desc)
+            fData.append('img',{
+                uri: image.uri,
+                type: 'image/jpeg',
+                
+            })
+        
+            console.log(image)
+            
+            const json = await api.postNewAd(fData)
+
+            console.log(json)
+
+        } else {
+            setError(errors.join("\n"))
+            alert(errors)
+        }
+       
     }
 
     return (
         <C.Container>
             <C.Scroll>
-                
+                {image === '' &&
                     <C.AddPhotoArea>
-                        {image === null &&
-                        <C.AddPhoto onPress={()=>setModal(true)}>
+                        
+                        <C.AddPhoto onPress={ImagePickerCall}>
                             <FontAwesome name='camera' size={24} color='#000' />
                             <C.Text>Adicionar Fotos</C.Text>
                         </C.AddPhoto>
-                        }
-                        {image &&
-                        <C.PhotoItem>
-                            <C.PhotoArea>
-                                <C.Photo source={{uri: image}}/>
-                            </C.PhotoArea>
-                        </C.PhotoItem>
-                        }
-                        <Modal
-                            animationType="fade"
-                            transparent={false}
-                            visible={modal}
-                        >
-                            <Camera 
-                                style={{flex: 1}}
-                                type={type}
-                                ref={camRef}
-                            >
-                                
-                                <C.CameraButtons>
 
-                                    <C.CamButton 
-                                        onPress={()=>setType(
-                                        type === Camera.Constants.Type.back
-                                        ? Camera.Constants.Type.front
-                                        : Camera.Constants.Type.back 
-                                        )}
-                                    >
-                                        <Ionicons name="camera-reverse" size={40} color='#FFF' />
-                                    </C.CamButton>
-
-                                    <C.CamButton onPress={takePicture}>
-                                        <Ionicons name="camera" size={40} color='#FFF' />
-                                    </C.CamButton>
-
-                                </C.CameraButtons>
-                            </Camera>        
-
-                        </Modal>
-                      
-                        {context.photo != undefined &&
-                        <C.PhotoArea>
-                            <C.Photo 
-                                source={{uri: context.photo}}
-                                resizeMode='cover'
-                            />
-                            <C.ChangePhoto onPress={()=>ChangePhoto}>
-                                <C.IconArea>
-                                    <FontAwesome name='camera' size={24} color='#000' />
-                                    <C.Text>Trocar Foto</C.Text>
-                                </C.IconArea>
-                            </C.ChangePhoto>
-                        </C.PhotoArea>
-                        }
                     </C.AddPhotoArea>
-                
+                }
+                {image &&
+                <C.AddPhotoArea>
+                    <C.PhotoArea>
+                        <C.Photo source={{uri:image.uri}} resizeMode='contain' />
+                    </C.PhotoArea>
+                </C.AddPhotoArea>
+                }
                 
                     
                 <C.NewItemInfo>
@@ -176,31 +160,34 @@ export default () => {
                 </C.NewItemInfo>
                 <C.NewItemInfo>
                     <C.ItemTitle>Categoria</C.ItemTitle>
-                   {/* <C.CategoryButton onPress={()=>setModal(true)}>
-                        <C.CategoryText>Selecione uma Categoria</C.CategoryText>
-                    </C.CategoryButton>*/}
-                    <C.ItemFieldDesc 
-                        value={cat}
-                        onChangeText={(e)=>setCat(e)}
-                        placeholder='Ex: car'
-                    />
+                   <Picker
+                    selectedValue={category}
+                    style={{width:200,height:50}}
+                    onValueChange={(itemValue)=>setCategory(itemValue)}
+                   >
+                    {category === undefined && <Picker.Item label="Selecione uma categoria" />}
+                    {categories && categories.map(i => 
+                        <Picker.Item key={i._id} label={i.name} value={i._id} />
+                        )}
+                   
+
+                   </Picker>
+                    
                 </C.NewItemInfo>
                 <C.NewItemInfo>
                     <C.ItemTitle>Preço</C.ItemTitle>
-                    <C.ItemFieldCep 
+                    <TextInputMask 
+                        style={{width:150,height: 40,borderWidth: 1,borderColor: '#000',borderRadius: 5,padding: 10}}
+                        type={'money'}
+                        options={{
+                            maskType:'BRL'
+                        }}
                         value={price}
-                        onChangeText={(e)=>setPrice(e)}
-                        keyboardType='numeric'
+                        onChangeText={text => setPrice(text)}
+                        ref={priceRef}
                     />
                 </C.NewItemInfo>
-              {/*   <C.NewItemInfo style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <C.ItemTitle>Permitir negociação</C.ItemTitle>
-                   <C.PricenegArea>
-                    <C.PricenegButton onPress={()=>setPriceneg(!priceneg)} style={{backgroundColor: priceneg === true ? 'green':'#FFF'}} />
-                    
-                   </C.PricenegArea>
-                </C.NewItemInfo>
-                */}
+             
                 <C.SendButtonArea>
                     <C.SendButton onPress={postAd}>
                         <C.SendButtonText>Enviar</C.SendButtonText>

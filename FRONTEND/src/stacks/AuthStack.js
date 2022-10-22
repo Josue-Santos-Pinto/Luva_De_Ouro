@@ -5,6 +5,7 @@ import MainDrawer from "./MainDrawer";
 import PreloadScreen from "../screens/PreloadScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import AnimatedPreload from "../screens/AnimatedPreload";
 
 
 const Stack = createStackNavigator()
@@ -15,6 +16,12 @@ export default () => {
             title:'',
             headerShown: false
             }}>
+            <Stack.Screen 
+                name='AnimatedPreload' 
+                component={AnimatedPreload}
+                options={{headerShown: false}} 
+            />
+           
             <Stack.Screen 
                 name='PreloadScreen' 
                 component={PreloadScreen}
@@ -30,8 +37,11 @@ export default () => {
                 component={RegisterScreen}
                 options={{
                     headerShown: true,
+                    headerTintColor: '#FFF',
+                    headerShadowVisible: false,
                     headerStyle: {
-                        height: 40
+                        height: 40,
+                        backgroundColor:'#121214'
                     }
                 }} 
             />

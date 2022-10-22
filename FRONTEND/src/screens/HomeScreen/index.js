@@ -32,15 +32,15 @@ export default () => {
             headerRight: () => (
                 <C.ButtonsArea >
                     <C.SearchButton onPress={()=>navigation.navigate('SearchScreen')}>
-                        <FontAwesome name='search' size={24} color='#000' />
+                        <FontAwesome name='search' size={24} color='#6e6d75' />
                     </C.SearchButton>
 
                     <C.NotificationButton onPress={()=>navigation.navigate('NotificationScreen')}>
-                        <FontAwesome name='bell-o' size={24} color='#000' />
+                        <FontAwesome name='bell-o' size={24} color='#6e6d75' />
                     </C.NotificationButton>
 
                     <C.FavButton onPress={()=>navigation.navigate('FavoriteScreen')}>
-                        <FontAwesome name='heart-o' size={24} color='#000' />
+                        <FontAwesome name='heart-o' size={24} color='#6e6d75' />
                     </C.FavButton>
                 </C.ButtonsArea>
             )

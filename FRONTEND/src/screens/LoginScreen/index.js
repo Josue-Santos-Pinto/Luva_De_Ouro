@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import C from './style'
 import { useNavigation } from "@react-navigation/native";
-
+import { Linking, ScrollView } from "react-native";
 import {FontAwesome} from '@expo/vector-icons'
 import api from '../../services/api'
 import { useStateValue } from "../../contexts/StateContext";
@@ -31,22 +31,32 @@ export default () => {
             let result = await api.loginLocal(email,password)
            
             
-            
+            console.log(result)
             if(result.error === undefined || result.error === ''){
-
-                dispatch({
-                    type: 'setToken',
-                    payload: {
-                      token: result.token
+                
+                    dispatch({type: 'setToken',payload: {token: result.token}})
+                    if(result.token){
+                        let result = await api.getUser()
+          
+                        if(!result.notallowed){
+                          
+                          dispatch({type:'setEmail',payload:{email: result.email}})
+                          dispatch({type:'setName',payload:{name: result.name}})
+                          dispatch({type:'setState',payload:{state: result.state}})
+                          dispatch({type:'setAds',payload:{ads: result.ads}})
+            
+                          navigation.reset({
+                            index: 1,
+                            routes:[{name: 'MainDrawer'}]
+                          })
+            
+                        }
                     }
-                })
-
+                    
+                  
                
 
-                navigation.reset({
-                    index: 1,
-                    routes:[{name: 'MainDrawer'}]
-                  })
+                
             } else {
                     alert(result.error)        
             }
@@ -55,43 +65,57 @@ export default () => {
         }
       
     }
-    const handleRegisterButton = () => {
-        navigation.navigate('RegisterScreen')
-    }
+    
 
     return (
         <C.Container>
-            
+            <ScrollView>
             <C.Logo 
                 source={require('../../assets/logo.png')}
                 resizeMode='contain'
             />
-            <C.Field 
-                placeholder='Digite seu e-mail'
-                value={email}
-                onChangeText={(e)=>setEmail(e)}
-                keyboardType='email-adress'
-            />
+            <C.Title>Luva de Ouro</C.Title>
+            <C.Label>Seu endereço de email</C.Label>
             <C.InputArea>
-             <C.FieldPassword 
+                
+                <C.EmailIcon>
+                    <FontAwesome name='envelope-o' size={24} color='#6e6d75' />
+                </C.EmailIcon>
+
+                <C.Field 
+                    placeholder='Digite seu e-mail'
+                    placeholderTextColor='#6e6d75'
+                    value={email}
+                    onChangeText={(e)=>setEmail(e)}
+                    keyboardType='email-adress'
+                />
+                
+            </C.InputArea>
+            <C.Label>Sua Senha</C.Label>
+            <C.InputArea>
+            <C.IconShowPassword onPress={()=>setHidePass(!hidePass)}>
+                <FontAwesome name={hidePass === true ? 'eye': 'eye-slash'} size={24} color='#6e6d75' />
+            </C.IconShowPassword>
+             <C.Field
                 placeholder='Digite sua senha'
+                placeholderTextColor='#6e6d75'
                 secureTextEntry={hidePass}
                 value={password}
                 onChangeText={(e)=>setPassword(e)}
             />
-            <C.IconShowPassword onPress={()=>setHidePass(!hidePass)}>
-                <FontAwesome name={hidePass === true ? 'eye': 'eye-slash'} size={24} color='#000' />
-            </C.IconShowPassword>
+            
             </C.InputArea>
 
             <C.ButtonArea onPress={handleLoginButton}>
                 <C.ButtonText>Entrar</C.ButtonText>
             </C.ButtonArea>
 
-            <C.ButtonArea onPress={handleRegisterButton}>
+            {/*<C.ButtonArea onPress={handleRegisterButton}>
                 <C.ButtonText>Cadastrar-se</C.ButtonText>
-            </C.ButtonArea>
-
+            </C.ButtonArea>*/}
+            <C.Text>Esqueceu sua senha ?</C.Text>
+            <C.Text onPress={()=>{navigation.navigate('RegisterScreen')}}>Não possui conta ? Criar agora!</C.Text>
+            </ScrollView>
         </C.Container>
     )
 }

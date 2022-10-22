@@ -23,7 +23,7 @@ export default () => {
 
         if(token){
           let result = await api.getUser()
-
+          
             if(!result.notallowed){
               
               dispatch({type:'setEmail',payload:{email: result.email}})
@@ -37,14 +37,24 @@ export default () => {
               })
 
             }
-          } else {
+            if(result.notallowed){
             
               dispatch({type:'setToken',payload:{token:''}})
               navigation.reset({
                 index: 1,
                 routes:[{name: 'LoginScreen'}]
               })
-            }
+              
+            } 
+           
+          } else {
+              
+            navigation.reset({
+              index: 1,
+              routes:[{name: 'LoginScreen'}]
+            })
+          } 
+         
             
       }
 

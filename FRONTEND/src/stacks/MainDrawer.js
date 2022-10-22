@@ -18,8 +18,9 @@ export default () => {
         screenOptions={{
             headerTitle: '',
             headerShown: true,
+            headerTintColor:'#6e6d75',
             headerStyle: {
-                backgroundColor:'#94B49F',
+                backgroundColor:'#121214',
                 shadowOpacity: 0,
                 elevation: 0
             }

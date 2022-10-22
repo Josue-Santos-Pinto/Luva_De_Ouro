@@ -47,19 +47,29 @@ export default {
         let response = await axios.get(`${onlineURL}/user/me?token=${token}`)
         return response.data
     },
-    postNewAd: async (title,price,priceneg,desc,cat,photo) => {
-        let token = await AsyncStorage.getItem('token')
-        let data = {
-            title,
-            price,
-            priceneg,
-            desc,
-            cat,
-            photo,
-            token
-        }
-        let response = await axios.post(`${onlineURL}/ad/add`,data)
+    getStates:  async () => {
+        let response = await axios.get(`${onlineURL}/states`)
         return response.data
+    },
+    getCategories: async () => {
+        let response = await axios.get(`${onlineURL}/categories`)
+        return response.data
+    },
+    postNewAd: async (fData) => {
+        
+        axios({
+            method: 'post',
+            url: `${onlineURL}/ad/add`,
+            data: fData,
+          })
+            .then((response, status) => {
+              console.log(response);
+              
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        
     },
     
 
@@ -77,13 +87,6 @@ export default {
         let response = await axios.get(`${onlineURL}/ad/item?token=${token}&&id=${id}`)
         return response.data
     },
-    getPhotosFromAlbum: async () => {
-        let response = await axios.get(`${products}/albums/1/photos`);
-        return response.data
-    },
-    getPhoto: async (id) => {
-        let response = await axios.get(`${products}/photos/${id}`);
-        return response.data
-    },
+   
    
 }

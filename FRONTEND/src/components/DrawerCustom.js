@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
-import {FontAwesome} from '@expo/vector-icons'
+import {FontAwesome5} from '@expo/vector-icons'
 import api from  '../services/api'
 import { useStateValue } from "../contexts/StateContext";
 import { useState } from "react";
 
     const DrawerArea = styled.View`
         flex: 1;
-        background-color: #FCF8E8;
+        background-color: #6e6d75;
     `
     const DrawerPerfilArea = styled.View`
         width: 100%;
-        background-color: #CEE5D0;
+        background-color: #121214;
     `
     const DrawerPerfilItems = styled.View`
         margin: 20px 10px;
@@ -23,7 +23,7 @@ import { useState } from "react";
         width: 50px;
         height: 50px;
         border-radius: 25px;
-        border: 2px solid #000;
+        border: 2px solid #FFF;
         justify-content: center;
         align-items: center;
         margin-right: 15px;
@@ -35,9 +35,11 @@ import { useState } from "react";
     const DrawerPerfilName = styled.Text`
         font-size: 20px;
         font-weight: bold;
+        color: #FFF;
     `
     const DrawePerfilEmail = styled.Text`
         font-size: 15px;
+        color: #FFF;
     `
     const DrawerScroller = styled.ScrollView``
     const MenuButton = styled.TouchableOpacity`
@@ -50,14 +52,14 @@ import { useState } from "react";
         width: 5px;
         height: 35px;
         margin-right: 20px;
-        background-color: ${props=>props.active ? '#94B49F' : 'transparent'};
+        background-color: ${props=>props.active ? '#FFF' : 'transparent'};
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
 `;
 const MenuButtonText = styled.Text`
         font-size: 15px;
         margin-left: 10px;
-        color: ${props=>props.active ? '#94B49F' : '#666E78'};
+        color: ${props=>props.active ? '#FFF' : '#ceced0'};
 `;
 
 
@@ -70,10 +72,8 @@ export default (props) => {
 
     const menus = [
         {title: 'Anúncios', icon: 'home', screen: 'HomeScreen' },
-        {title: 'Inserir Anúncio', icon: 'pencil', screen: 'PostAdScreen' },
-        {title: 'Notificação', icon: 'bell-o', screen: 'NotificationScreen' },
-        {title: 'Chat', icon: 'wechat', screen: 'ChatScreen' },
-        {title: 'Favoritos', icon: 'heart-o', screen: 'FavScreen' },
+        {title: 'Inserir Anúncio', icon: 'pencil-alt', screen: 'PostAdScreen' },
+        {title: 'Meus Anuncios', icon: 'store-alt', screen: 'MyAddScreen' },
         {title: 'Minha Conta', icon: 'user', screen: 'MyAccountScreen' }
 
     ]
@@ -93,7 +93,7 @@ export default (props) => {
                 <DrawerPerfilItems>
                     <DrawerPerfilImgArea>
                         {/*<DrawerPerfilImg />*/}
-                        <FontAwesome name="user" size={25} color='#000' />
+                        <FontAwesome5 name="user" size={25} color='#FFF' />
                     </DrawerPerfilImgArea>
                     <DrawerPerfilInfo>
                         <DrawerPerfilName>{context.user.name}</DrawerPerfilName>
@@ -106,13 +106,13 @@ export default (props) => {
                     <MenuButton key={index} onPress={()=>navigation.navigate(item.screen)}>
                         <MenuSquare 
                             active={props.state.routes[props.state.index].name === item.screen}></MenuSquare>
-                        <FontAwesome name={item.icon} size={20} color={props.state.routes[props.state.index].name === item.screen ? '#94B49F' : '#666E78'} />
+                        <FontAwesome5 name={item.icon} size={20} color={props.state.routes[props.state.index].name === item.screen ? '#FFF' : '#ceced0'} style={{width:25,height:25}} />
                         <MenuButtonText active={props.state.routes[props.state.index].name === item.screen}>{item.title}</MenuButtonText>
                     </MenuButton>
                 ))}
                    <MenuButton onPress={handleLogoutButton}>
                         <MenuSquare></MenuSquare>
-                        <FontAwesome name='arrow-left' size={20} color={'#333'} />
+                        <FontAwesome5 name='arrow-left' size={20} color={'#ceced0'} style={{width:25,height:25}}/>
                         <MenuButtonText>Sair</MenuButtonText>
                     </MenuButton>
             </DrawerScroller>

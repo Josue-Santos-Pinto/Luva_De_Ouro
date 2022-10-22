@@ -31,7 +31,7 @@ export default {
         margin: 25px auto;
         padding: 10px;
         border-radius: 5px;
-        background-color: #99A799;
+        background-color: #62dafc;
         justify-content: center;
         align-items: center;
     `,

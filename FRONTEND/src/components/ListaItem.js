@@ -11,6 +11,7 @@ const Item = styled.TouchableOpacity`
     border-bottom-width: 1px;
     border-color: #CCC;
     overflow: hidden;
+    background-color: #FFF;
 `
 const ItemArea = styled.View`
     flex-direction: row;
@@ -51,7 +52,7 @@ export default (props) => {
    
 
     return (
-        <Item onPress={()=>navigation.navigate('ProductScreen',{id})}>
+        <Item onPress={()=>navigation.navigate('ProductScreen',{id})} activeOpacity={0.8}>
            
                 <ItemArea>
                     <Photo source={{uri:image}} resizeMode='cover' />

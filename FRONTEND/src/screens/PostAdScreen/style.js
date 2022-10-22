@@ -97,12 +97,12 @@ export default {
     Photo: styled.Image`
         width: 100%;
         height: 100%;
-        z-index: 1;
-        object-fit: center;
     `,
     PhotoArea: styled.View`
-        flex-direction: row;
-        flex: 1;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
     `,
     ChangePhoto: styled.TouchableOpacity`
         width: 250px;
