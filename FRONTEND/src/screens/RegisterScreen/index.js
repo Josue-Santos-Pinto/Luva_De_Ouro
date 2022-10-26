@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState,useEffect,useRef } from "react";
 import C from './style'
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,13 +8,14 @@ import { useStateValue } from "../../contexts/StateContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import {TextInputMask} from 'react-native-masked-text'
 
 
 
 
 export default () => {
 
-   
+   const telRef = useRef()
 
     useEffect(()=>{
         const getStates = async () => {
@@ -34,19 +35,23 @@ export default () => {
     const [states,setStates] = useState([])
     const [name,setName] = useState('')
     const [email, setEmail] = useState('')
-    const [cpf,setCpf] = useState('')
+    const [tel,setTel] = useState('')
     const [password, setPassword] = useState('')
     const [hidePass,setHidePass] = useState(true)
     const [confirmHidePass,setConfirmHidePass] = useState(true)
     const [state, setState] = useState('')
+    const [telMaskedOff,setTellMaskedOff] = useState()
     
     
 
 
     const handleRegisterButton = async () => {
 
-        if(name && email && password && state){
-            let result = await api.register(name,email,password,state)
+        if(name && email && password && state && tel){
+            const maskOff = telRef?.current.getRawValue()
+            setTellMaskedOff(maskOff)
+            console.log(telMaskedOff)
+            let result = await api.register(name,email,password,state,telMaskedOff)
             console.log(result)
             if(result.error === undefined || result.error === ''){
                 alert('Cadastrado com sucesso')
@@ -69,34 +74,54 @@ export default () => {
            
             <C.Field 
                 placeholder='Digite seu nome completo'
+                placeholderTextColor='#6e6d75'
                 value={name}
                 onChangeText={(e)=>setName(e)}
                 keyboardType='email-address'
             />
             <C.Field 
                 placeholder='Digite seu e-mail'
+                placeholderTextColor='#6e6d75'
                 value={email}
                 onChangeText={(e)=>setEmail(e)}
                 keyboardType='email-address'
+            />
+            <TextInputMask 
+                style={{borderWidth: 1,borderColor: '#CCC',borderRadius: 5,padding: 10,color:'#FFF',backgroundColor:'#201f24'}}
+                type={'cel-phone'}
+                options={{
+                    maskType:"BRL",
+                    withDDD: true,
+                    dddMask:'(99) '
+                }}
+                value={tel}
+                onChangeText={text => setTel(text)}
+                ref={telRef}
+                placeholder='(99) 9999-9999'
+                placeholderTextColor='#6e6d75'
             />
             
             <C.InputArea>
              <C.FieldPassword 
                 placeholder='Digite sua senha'
+                placeholderTextColor='#6e6d75'
                 secureTextEntry={hidePass}
                 value={password}
                 onChangeText={(e)=>setPassword(e)}
             />
             <C.IconShowPassword onPress={()=>setHidePass(!hidePass)}>
-                <FontAwesome name={hidePass === true ? 'eye': 'eye-slash'} size={24} color='#000' />
+                <FontAwesome name={hidePass === true ? 'eye': 'eye-slash'} size={24} color='#6e6d75' />
             </C.IconShowPassword>
             </C.InputArea>
 
             <C.Select>
                     <Picker
+                        dropdownIconColor='#FFF'
+                        itemStyle={{borderRadius:5,borderWidth:1}}
                         selectedValue={state}
-                        
+                        style={{color:'#fff'}}
                         onValueChange={(itemValue)=>setState(itemValue)}
+                        
                     >
                     {state === undefined && <Picker.Item label="Selecione uma categoria" />}
                     {states && states.map(i => 

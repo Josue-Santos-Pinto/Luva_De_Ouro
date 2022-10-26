@@ -29,7 +29,9 @@ export default () => {
     
     useEffect(()=>{
         const getItem = async () => {
+            
             let response = await api.getItem(id)
+            
             setTitle(response.title)
             setCategory(response.category.name)
             setDate(response.dateCreated)
@@ -43,7 +45,7 @@ export default () => {
         }
         getItem()
         
-    },[])
+    },[id])
     
   
     const openURL = async (url) => {

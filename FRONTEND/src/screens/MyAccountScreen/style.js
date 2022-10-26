@@ -21,8 +21,9 @@ export default {
         font-size: 20px;
         margin-bottom: 5px;
     `,
+    TextValue: styled.Text``,
     Input: styled.TextInput`
-        border-bottom: 1px solid #000;
+        border: 1px solid #000;
         border-radius: 5px;
         padding: 5px;
         width: 80%;
@@ -37,5 +38,20 @@ export default {
     `,
     ButtonText: styled.Text`
         color: #FFF;
-    `
+    `,
+    ModalArea: styled.View`
+        flex: 1;
+    `,
+    ModalTitle: styled.Text`
+        font-size: 23px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        text-align: center;
+    `,
+    Select: styled.View`
+        width: 80%;
+        border: 1px solid #000;
+        font-size: 15px;
+        border-radius: 5px;
+    `,
 }

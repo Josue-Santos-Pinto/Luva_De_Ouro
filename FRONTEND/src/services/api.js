@@ -1,11 +1,11 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AxiosRequestConfig } from "axios";
 
 const products = 'https://jsonplaceholder.typicode.com'
 
 const localURL = 'http://10.0.2.2:5000'
-const onlineURL = 'http://192.168.1.101:5000'
-
+const onlineURL = 'http://192.168.1.102:5000'
 
 
 
@@ -32,12 +32,13 @@ export default {
         let token = await AsyncStorage.removeItem('token')
         return token
     },
-    register: async (name,email,password,state) => {
+    register: async (name,email,password,state,tel) => {
         let data = {
             name,
             email,
             password,
-            state
+            state,
+            tel
         }
         let response = await axios.post(`${onlineURL}/user/signup`,data)
         return response.data
@@ -45,6 +46,44 @@ export default {
     getUser: async () => {
         let token = await AsyncStorage.getItem('token')
         let response = await axios.get(`${onlineURL}/user/me?token=${token}`)
+        return response.data
+    },
+    putUserAll: async (name,email,cep) => {
+        let token = await AsyncStorage.getItem('token')
+        let data = {
+            name:name ,
+            email:email ,
+            state: cep ,
+            token
+        }
+        let response = await axios.put(`${onlineURL}/user/me`,data)
+        return response.data
+    },
+    putUserName: async (name) => {
+        let token = await AsyncStorage.getItem('token')
+        let data = {
+            name:name ,
+            token
+        }
+        let response = await axios.put(`${onlineURL}/user/me`,data)
+        return response.data
+    },
+    putUserEmail: async (email) => {
+        let token = await AsyncStorage.getItem('token')
+        let data = {
+            email:email ,
+            token
+        }
+        let response = await axios.put(`${onlineURL}/user/me`,data)
+        return response.data
+    },
+    putUserCep: async (cep) => {
+        let token = await AsyncStorage.getItem('token')
+        let data = {
+            state: cep ,
+            token
+        }
+        let response = await axios.put(`${onlineURL}/user/me`,data)
         return response.data
     },
     getStates:  async () => {
@@ -56,19 +95,21 @@ export default {
         return response.data
     },
     postNewAd: async (fData) => {
-        
+       
         axios({
-            method: 'post',
-            url: `${onlineURL}/ad/add`,
+            method: "post",
+            url: "http://192.168.1.102:5000/ad/add",
             data: fData,
+            headers: { "Content-Type": "multipart/form-data" },
           })
-            .then((response, status) => {
+            .then(function (response) {
+              //handle success
               console.log(response);
-              
             })
-            .catch(function (error) {
-              console.log(error);
-            });
+            .catch(function (response) {
+              //handle error
+              console.log(response);
+            }); 
         
     },
     
@@ -87,6 +128,16 @@ export default {
         let response = await axios.get(`${onlineURL}/ad/item?token=${token}&&id=${id}`)
         return response.data
     },
+    putItem: async (data,id) => {
+        let token = await AsyncStorage.getItem('token')
+        let request = {
+            data,
+            token
+        }
+        let response = await axios.post(`${onlineURL}/ad/${id}`,request)
+        return response.data
+    },
+   
    
    
 }

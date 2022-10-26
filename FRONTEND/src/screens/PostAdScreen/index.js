@@ -25,9 +25,11 @@ export default () => {
     const [imageSplit,setImageSplit] = useState('')
     const [modal,setModal] = useState(false)
     const [price,setPrice] = useState('')
+    const [unmaskedPrice,setUnmaskedPrice] = useState('')
     const [priceNegotiable,setPriceNegotiable] = useState(false)
     const [category,setCategory] = useState('')
     const [error,setError] = useState('')
+    const [url,setUrl] = useState('')
     
     const [hasPermission,setHasPermission] = useState(null)
     const [openCamera,setOpenCamera] = useState(false)
@@ -57,8 +59,9 @@ export default () => {
        if(!data.uri){
         return
        }
+        setUrl(data)
        
-       setImage(data)
+       setImage(data.uri)
 
     }
     useEffect(()=>{
@@ -72,13 +75,15 @@ export default () => {
 
     useEffect(()=>{
         if(price != undefined){
-            const unmaskPrice = priceRef?.current.getRawValue()
-            console.log(price)
-            console.log(unmaskPrice)
+            const unmask = priceRef?.current.getRawValue()
+            setUnmaskedPrice(unmask)
         }
         
     },[price])
 
+    useEffect(()=>{
+        console.log(url)
+    },[url])
     
     
     const postAd = async () => {
@@ -90,27 +95,29 @@ export default () => {
             errors.push('Sem Categoria')
         }
         if(errors.length === 0){
-           
+           console.log(image)
             const fData = new FormData()
             let token = await AsyncStorage.getItem('token')
-
             fData.append('token',token)
+            fData.append('img',{
+                uri: image,
+                type: 'image/jpeg',
+                name: 'photo.jpg'
+            })
             fData.append('title',title)
-            fData.append('price',price)
+            fData.append('price',unmaskedPrice)
             fData.append('priceneg',priceNegotiable)
             fData.append('cat',category)
             fData.append('desc',desc)
-            fData.append('img',{
-                uri: image.uri,
-                type: 'image/jpeg',
-                
-            })
-        
-            console.log(image)
+            console.log(fData)
             
             const json = await api.postNewAd(fData)
 
             console.log(json)
+            navigation.reset({
+                index: 1,
+                routes:[{name: 'HomeScreen'}]
+            })
 
         } else {
             setError(errors.join("\n"))
@@ -122,7 +129,7 @@ export default () => {
     return (
         <C.Container>
             <C.Scroll>
-                {image === '' &&
+                {url === '' &&
                     <C.AddPhotoArea>
                         
                         <C.AddPhoto onPress={ImagePickerCall}>
@@ -132,10 +139,10 @@ export default () => {
 
                     </C.AddPhotoArea>
                 }
-                {image &&
+                {url &&
                 <C.AddPhotoArea>
                     <C.PhotoArea>
-                        <C.Photo source={{uri:image.uri}} resizeMode='contain' />
+                        <C.Photo source={{uri:url.uri}} resizeMode='contain' />
                     </C.PhotoArea>
                 </C.AddPhotoArea>
                 }
@@ -185,6 +192,7 @@ export default () => {
                         value={price}
                         onChangeText={text => setPrice(text)}
                         ref={priceRef}
+                        placeholder='R$'
                     />
                 </C.NewItemInfo>
              

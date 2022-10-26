@@ -73,7 +73,7 @@ export default (props) => {
     const menus = [
         {title: 'Anúncios', icon: 'home', screen: 'HomeScreen' },
         {title: 'Inserir Anúncio', icon: 'pencil-alt', screen: 'PostAdScreen' },
-        {title: 'Meus Anuncios', icon: 'store-alt', screen: 'MyAddScreen' },
+        {title: 'Meus Anúncios', icon: 'th-large', screen: 'MyAddScreen' },
         {title: 'Minha Conta', icon: 'user', screen: 'MyAccountScreen' }
 
     ]

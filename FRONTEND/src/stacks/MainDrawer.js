@@ -8,6 +8,7 @@ import DrawerCustom from "../components/DrawerCustom";
 import SearchScreen from "../screens/SearchScreen";
 import PostAdScreen from '../screens/PostAdScreen'
 import MyAccountScreen from "../screens/MyAccountScreen";
+import MyAddScreen from "../screens/MyAddScreen";
 
 const Drawer = createDrawerNavigator()
 
@@ -49,6 +50,11 @@ export default () => {
             <Drawer.Screen 
                 name="MyAccountScreen"
                 component={MyAccountScreen}
+                options={{title: 'Minha Conta'}}
+            />
+            <Drawer.Screen 
+                name="MyAddScreen"
+                component={MyAddScreen}
                 options={{title: 'Minha Conta'}}
             />
         </Drawer.Navigator>

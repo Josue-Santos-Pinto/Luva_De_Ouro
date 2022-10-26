@@ -18,18 +18,19 @@ export default {
         flex-direction: row;
         align-items: center;
         border-width: 1px;
+        border-radius: 5px;
         border-color: #CCC;
         border-radius: 5px;
-        background-color: #FFF;
+        background-color: #201f24;
         margin-top: 15px;
         margin-bottom: 15px;
     `,
     Select: styled.View`
         border-width: 1px;
         border-color: #CCC;
-        background-color: #FFF;
+        background-color: #201f24;
         border-radius: 5px;
-        color: #000;
+        color: #6e6d75;
         font-size: 15px;
         margin-top: 15px;
         margin-bottom: 15px;
@@ -37,9 +38,9 @@ export default {
     Field: styled.TextInput`
         border-width: 1px;
         border-color: #CCC;
-        background-color: #FFF;
+        background-color: #201f24;
         border-radius: 5px;
-        color: #000;
+        color: #6e6d75;
         font-size: 15px;
         padding: 10px;
         margin-top: 15px;
@@ -47,8 +48,12 @@ export default {
     `,
     FieldPassword: styled.TextInput`
         width: 85%;
+        
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-color: #201f24;
         padding: 10px;
-        color: #000;
+        color: #6e6d75;
         font-size: 15px;
     `,
     IconShowPassword: styled.TouchableOpacity`
