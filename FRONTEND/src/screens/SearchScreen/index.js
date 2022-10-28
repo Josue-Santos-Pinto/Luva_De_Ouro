@@ -9,17 +9,24 @@ import { useNavigation } from "@react-navigation/native";
 import {FontAwesome} from '@expo/vector-icons'
 import FakeApi from "../../Api/FakeApi";
 import ListaItem from "../../components/ListaItem";
+import api from "../../services/api";
 
 export default () => {
 
-    const {loadAlbum,getPhotos,items} = useContext(AuthContext)
+    const [items,setItems] = useState([])
     const navigation = useNavigation()
     const [list,setList] = useState(items)
     const [searchText,setSearchText] = useState('')
 
     
-
-   
+useEffect(()=>{
+    const loadAlbum = async () => {
+        let data = await api.getAlbums()
+        setItems(data.ads)
+    }
+    loadAlbum()
+},[])
+    
 
 
     useEffect(()=>{

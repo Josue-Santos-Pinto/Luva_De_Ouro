@@ -59,22 +59,46 @@ export default () => {
         const changingInfo = async () => {
             setChangedName(name)
             setChangedEmail(email)
-            setChangedState(state)
+            
         }
         
         changingInfo()
-    },[name,email,state])
+    },[name,email])
    
    
   
 
-    const changeName = async () => {
+    const changeAll = async () => {
          
-                let result = await api.putUserName(changedName)
-                if(result.error){
-                    alert(result.error)
-                }
-                   
+        if(changedName != name){
+            let result = await api.putUserName(changedName)
+            if(result.error){
+                alert(result.error)
+            }
+        }
+        if(changedEmail != email){
+            let result2 = await api.putUserEmail(changedEmail)
+            if(result2.error){
+                alert(result2.error)
+            }
+        }
+        if(changedState != state){
+            let result3 = await api.putUserState(changedState)
+            console.log(changedState)
+            if(result3.error){
+                alert(result3.error)
+            }
+        } else {
+            let result = await api.putUserName(changedName)
+            let result2 = await api.putUserEmail(changedEmail)
+            let result3 = await api.putUserState(changedState)
+        }
+                
+        navigate.reset({
+            index: 1,
+            routes: [{name:'HomeScreen'}]
+        })        
+                 
     }
     const changeEmail = async () => {
         
@@ -151,9 +175,7 @@ export default () => {
                             onChangeText={(e)=>setChangedName(e)}
                         />
                     </C.InputArea>
-                        <C.Button onPress={changeName}>
-                            <C.ButtonText>Enviar</C.ButtonText>
-                        </C.Button>
+                        
                     <C.InputArea>
                         <C.Text>Email: </C.Text>
                         <C.Input 
@@ -161,9 +183,7 @@ export default () => {
                             onChangeText={(txt)=>setChangedEmail(txt)}
                         />
                     </C.InputArea>
-                        <C.Button onPress={changeEmail}>
-                            <C.ButtonText>Enviar</C.ButtonText>
-                        </C.Button>
+                        
                     <C.InputArea>
                         <C.Text>Telefone: </C.Text>
                         <C.Input 
@@ -178,17 +198,17 @@ export default () => {
                             
                             dropdownIconColor='#000'
                             selectedValue={changedState}
-                            onValueChange={(itemValue)=>setState(itemValue)}
+                            onValueChange={(itemValue)=>setChangedState(itemValue)}
                             
                         >
-                        {state === undefined && <Picker.Item label="Selecione uma categoria" />}
+                        {changedState === undefined && <Picker.Item label="Selecione uma categoria" />}
                         {states && states.map(i => 
                             <Picker.Item key={i._id} label={i.name} value={i._id} />
                             )}
                         </Picker>
                     </C.Select>
                     </C.InputArea>
-                    <C.Button onPress={changeState}>
+                    <C.Button onPress={changeAll}>
                             <C.ButtonText>Enviar</C.ButtonText>
                     </C.Button>
             </C.ModalArea>

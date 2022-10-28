@@ -23,11 +23,14 @@ export default () => {
     useEffect(()=>{
         const loadAlbum = async () => {
             let data = await api.getUser()
-            let newItems = [...item]
+            
+            setItem(data.ads)
+            /*let newItems = [...item]
             for(let i=0;i<data.ads.length;i++){
+                console.log(data.ads.length)
                 newItems.push(data.ads[i]._doc)
                 setItem(newItems)
-            }
+            }*/
             
         }
         loadAlbum()

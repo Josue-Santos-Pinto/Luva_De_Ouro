@@ -62,6 +62,12 @@ const Input = styled.TextInput`
     border: 1px solid #000;
     border-radius: 5px;
 `
+const InputDesc = styled.TextInput`
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    height: 100px;
+`
 const Button = styled.TouchableOpacity`
     width: 100%;
     height: 40px;
@@ -82,22 +88,34 @@ export default (props) => {
     const navigation = useNavigation()
 
     const [modal,setModal] = useState(false)
-    const id = props.data.id
-    const url = props.data.images[0].url
+    const id = props.data.$__._id
+    const date = props.data.dateCreated
+    const url = props.data._doc.images[0].url
     const [image,setImage] = useState(`http://192.168.1.102:5000/media/${url}`)
-    const [title,setTitle] = useState(props.data.title)
-    const [price,setPrice] = useState(props.data.price)
-    const [unmaskedPrice,setUnmaskedPrice] = useState('')
-    const [desc,setDesc] = useState(props.data.description)
-    const [category,setCategory] = useState(props.data.category)
-    const [state,setState] = useState(props.data.state)
+    const [title,setTitle] = useState(props.data._doc.title)
+    const [price,setPrice] = useState(props.data._doc.price)
+    
+    const [desc,setDesc] = useState(props.data._doc.description)
+    const [category,setCategory] = useState(props.data._doc.category)
+    const [state,setState] = useState(props.data._doc.state)
     const [states,setStates] = useState([])
-    const [status,setStatus] = useState(props.data.status)
-    const [data,setData] = useState([])
+    const [status,setStatus] = useState(props.data._doc.status)
 
+    const [changedTitle,setChangedTitle] = useState('')
+    const [changedPrice,setChangedPrice] = useState('')
+    const [changedImage,setChangedImage] = useState('')
+    const [changedDesc,setChangedDesc] = useState('')
+    const [changedState,setChangedState] = useState('')
+
+    const [unmaskedPrice,setUnmaskedPrice] = useState('')
     const priceRef = useRef()
 
-    const date = props.data.dateCreated
+    useEffect(()=>{
+        setChangedTitle(title)
+        setChangedPrice(price)
+        setChangedDesc(desc)
+        
+    },[title,price,desc])
 
     useEffect(()=>{
         const getStates = async () => {
@@ -111,18 +129,19 @@ export default (props) => {
     useEffect(()=>{
         const putAdd = async () => {
             
-            console.log(data)
-            let result = await api.putItem(data,id)
+            
+            let result = await api.putItem(id)
             console.log(result.error)
         }
-        putAdd()
+        
     },[])
     const deleteAdd = () => {
-        let newData = [...data]
-        newData.push(status = false)
-        setData(newData)
-        console.log(status)
+        
+        
     }
+    useEffect(()=>{
+        console.log(id)
+    },[id])
    
 
     return (
@@ -156,8 +175,8 @@ export default (props) => {
                     <AddInfo>
                         <Text>Titulo: </Text>
                         <Input 
-                            value={title}
-                            
+                            value={changedTitle}
+                            onChangeText={(e)=>setChangedTitle(e)}
                         />
                     </AddInfo>
                     <AddInfo>
@@ -168,17 +187,18 @@ export default (props) => {
                         options={{
                             maskType:'BRL'
                         }}
-                        value={price}
-                        onChangeText={text => setPrice(text)}
+                        value={changedPrice}
+                        onChangeText={text => setChangedPrice(text)}
                         ref={priceRef}
                         placeholder='R$'
                     />
                     </AddInfo>
                     <AddInfo>
                         <Text>Descrição: </Text>
-                        <Input 
-                            value={desc}
-                            
+                        <InputDesc 
+                            value={changedDesc}
+                            onChangeText={(e)=>setChangedDesc(e)}
+                            multiline={true}
                         />
                     </AddInfo>
                     <AddInfo>
