@@ -224,7 +224,7 @@ module.exports = {
     },
     editAction: async (req, res) => {
         let { id } = req.params;
-        let { title, status, price, priceneg, desc, cat, images, token } = req.body;
+        let { title, status,state, price, priceneg, desc, cat, images, token } = req.body;
 
         if(id.length < 12) {
             res.json({error: 'ID inválido'});
@@ -249,7 +249,7 @@ module.exports = {
             updates.title = title;
         }
         if(price) { // R$ 8.000,35 = 8000.35
-            price = price.replace('.', '').replace(',', '.').replace('R$ ', '');
+            
             price = parseFloat(price);
             updates.price = price;
         }
@@ -258,6 +258,9 @@ module.exports = {
         }
         if(status) {
             updates.status = status;
+        }
+        if(state) {
+            updates.state = state;
         }
         if(desc) {
             updates.description = desc;

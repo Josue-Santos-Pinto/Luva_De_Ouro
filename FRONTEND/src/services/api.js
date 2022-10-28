@@ -110,7 +110,7 @@ export default {
 
 
 
-    getAlbums: async () => {
+    getAllProducts: async () => {
         let response = await axios.get(`${onlineURL}/ad/list`)
         return response.data
     },
@@ -119,10 +119,46 @@ export default {
         let response = await axios.get(`${onlineURL}/ad/item?token=${token}&&id=${id}`)
         return response.data
     },
-    putItem: async (data,id) => {
+    putItemTitle: async (changedTitle,id) => {
         let token = await AsyncStorage.getItem('token')
         let request = {
-            data,
+            'title':changedTitle,
+            token
+        }
+        let response = await axios.post(`${onlineURL}/ad/${id}`,request)
+        return response.data
+    },
+    putItemPrice: async (unmaskedPrice,id) => {
+        let token = await AsyncStorage.getItem('token')
+        let request = {
+            'price':unmaskedPrice,
+            token
+        }
+        let response = await axios.post(`${onlineURL}/ad/${id}`,request)
+        return response.data
+    },
+    putItemDesc: async (changedDesc,id) => {
+        let token = await AsyncStorage.getItem('token')
+        let request = {
+            'desc':changedDesc,
+            token
+        }
+        let response = await axios.post(`${onlineURL}/ad/${id}`,request)
+        return response.data
+    },
+    putItemState: async (changedState,id) => {
+        let token = await AsyncStorage.getItem('token')
+        let request = {
+            'state':changedState,
+            token
+        }
+        let response = await axios.post(`${onlineURL}/ad/${id}`,request)
+        return response.data
+    },
+    putItemStatus: async (changedStatus,id) => {
+        let token = await AsyncStorage.getItem('token')
+        let request = {
+            'status':changedStatus,
             token
         }
         let response = await axios.post(`${onlineURL}/ad/${id}`,request)

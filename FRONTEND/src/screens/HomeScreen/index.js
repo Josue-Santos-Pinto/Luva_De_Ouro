@@ -20,11 +20,9 @@ export default () => {
     const navigation = useNavigation()
 
     const loadAlbum = async () => {
-        let data = await api.getAlbums()
+        let data = await api.getAllProducts()
         setItem(data.ads)
     }
-    
-   
     
 
     useEffect(()=>{

@@ -37,7 +37,7 @@ const Price = styled.Text`
     font-size: 20px;
     padding: 20px 0;
 `
-const Local = styled.Text``
+const State = styled.Text``
 
 export default (props) => {
 
@@ -47,6 +47,7 @@ export default (props) => {
     const image = props.data.image
     const title = props.data.title
     const price = props.data.price
+    const state = props.data.state
 
     
    
@@ -59,6 +60,7 @@ export default (props) => {
                     <TextArea>
                         <Titulo>{title}</Titulo>
                         <Price>R$ {parseFloat(price).toFixed(2)}</Price>
+                        <State>{state}</State>
                         
                     </TextArea>
                 </ItemArea>
