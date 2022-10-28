@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { useEffect,useRef } from "react";
 import { useState } from "react";
@@ -18,16 +19,19 @@ export default () => {
     const [name,setName] = useState('')
     const [email,setEmail] = useState('')
     const [tel,setTel] = useState('')
-    const [cep,setCep] = useState('')
-    const [changedName,setChangedName] = useState(name)
-    const [changedEmail,setChangedEmail] = useState(email)
-    const [changedTel,setChangedTel] = useState(tel)
+    const [states,setStates] = useState([])
+    const [state, setState] = useState('')
+    const [changedName,setChangedName] = useState('')
+    const [changedEmail,setChangedEmail] = useState('')
+    const [changedTel,setChangedTel] = useState('')
+    const [changedState,setChangedState] = useState('')
     
     const [modal,setModal] = useState(false)
-    const [states,setStates] = useState([])
-    const [state, setState] = useState(cep)
+    
 
     const telRef = useRef()
+
+   
 
     useEffect(()=>{
         navigate.setOptions({
@@ -46,58 +50,48 @@ export default () => {
             
             setName(result.name)
             setEmail(result.email)
-            setCep(result.state)
+            setState(result.state)
         }
         getUser()
     },[])
+    
     useEffect(()=>{
-        console.log(state)
-    },[state])
+        const changingInfo = async () => {
+            setChangedName(name)
+            setChangedEmail(email)
+            setChangedState(state)
+        }
+        
+        changingInfo()
+    },[name,email,state])
    
+   
+  
 
-    const changeAccountInfo = async () => {
-        if((state == cep) && (changedEmail == email) && (changedName != name)){
-            let result = await api.putUserName(changedName)
-            alert('Nome alterado para: ' + changedName)
-            
-            setModal(false)
-            if(result.error){
-                alert(result.error)
-            }
-        }
-        if((state == cep) && (changedEmail != email) && (changedName == name) ){
-            let result = await api.putUserEmail(changedEmail)
-            
-            alert('Email alterado para: ' + changedEmail)
-            setModal(false)
-            if(result.error){
-                alert(result.error)
-            }
-        }
-        if((state != cep) && (changedEmail == email) && (changedName == name) ){
-            let result = await api.putUserCep(state)
-            console.log(state)
-            
-            alert('Região alterada para: ' + state)
-            setModal(false)
-            if(result.error){
-                alert(result.error)
-            }
-        }
-        if((state != cep) && (changedEmail != email) && (changedName != name) ){
-            let result = await api.putUserAll(state,changedEmail,changedName)
-            
-            alert(`Nome alterado para: ${changedName} \n
-                   Email alterado para: ${changedEmail} \n
-                   Região alterada para: ${state}
-            `)
-            setModal(false)
-            if(result.error){
-                alert(result.error)
-            }
-        }
-
+    const changeName = async () => {
+         
+                let result = await api.putUserName(changedName)
+                if(result.error){
+                    alert(result.error)
+                }
+                   
     }
+    const changeEmail = async () => {
+        
+               let result = await api.putUserEmail(changedEmail)
+               if(result.error){
+                   alert(result.error)
+               }
+                 
+   }
+   const changeState = async () => {
+        
+                let result = await api.putUserState(changedState)
+                if(result.error){
+                    alert(result.error)
+                }
+      
+}
 
 
     return (
@@ -132,7 +126,7 @@ export default () => {
             </C.InputArea>
             <C.InputArea>
                 <C.Text>CEP: </C.Text>
-                <C.TextValue>{cep}</C.TextValue>
+                <C.TextValue>{state}</C.TextValue>
             </C.InputArea>
             <C.Button onPress={()=>setModal(!modal)}>
                 <C.ButtonText>Alterar</C.ButtonText>
@@ -154,21 +148,27 @@ export default () => {
                         <C.Text>Nome: </C.Text>
                         <C.Input 
                             value={changedName}
-                            onChangeText={(n)=>setChangedName(n)}
+                            onChangeText={(e)=>setChangedName(e)}
                         />
                     </C.InputArea>
+                        <C.Button onPress={changeName}>
+                            <C.ButtonText>Enviar</C.ButtonText>
+                        </C.Button>
                     <C.InputArea>
                         <C.Text>Email: </C.Text>
                         <C.Input 
                             value={changedEmail}
-                            onChangeText={(e)=>setChangedEmail(e)}
+                            onChangeText={(txt)=>setChangedEmail(txt)}
                         />
                     </C.InputArea>
+                        <C.Button onPress={changeEmail}>
+                            <C.ButtonText>Enviar</C.ButtonText>
+                        </C.Button>
                     <C.InputArea>
                         <C.Text>Telefone: </C.Text>
                         <C.Input 
                             value={changedTel}
-                            onChangeText={(t)=>setChangedTel(t)}
+                            onChangeText={(txt)=>setChangedTel(txt)}
                         />
                     </C.InputArea>
                     <C.InputArea>
@@ -177,7 +177,7 @@ export default () => {
                         <Picker
                             
                             dropdownIconColor='#000'
-                            selectedValue={state}
+                            selectedValue={changedState}
                             onValueChange={(itemValue)=>setState(itemValue)}
                             
                         >
@@ -188,8 +188,8 @@ export default () => {
                         </Picker>
                     </C.Select>
                     </C.InputArea>
-                    <C.Button onPress={changeAccountInfo}>
-                        <C.ButtonText>Enviar</C.ButtonText>
+                    <C.Button onPress={changeState}>
+                            <C.ButtonText>Enviar</C.ButtonText>
                     </C.Button>
             </C.ModalArea>
             </Modal>

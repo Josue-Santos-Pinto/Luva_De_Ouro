@@ -48,44 +48,35 @@ export default {
         let response = await axios.get(`${onlineURL}/user/me?token=${token}`)
         return response.data
     },
-    putUserAll: async (name,email,cep) => {
+    putUserName: async (changedName) => {
         let token = await AsyncStorage.getItem('token')
         let data = {
-            name:name ,
-            email:email ,
-            state: cep ,
-            token
+            'name': changedName
         }
-        let response = await axios.put(`${onlineURL}/user/me`,data)
+        let response = await axios.put(`${onlineURL}/user/me?token=${token}`,data)
         return response.data
+        
     },
-    putUserName: async (name) => {
+    putUserEmail: async (changedEmail) => {
         let token = await AsyncStorage.getItem('token')
         let data = {
-            name:name ,
-            token
+            'email': changedEmail
         }
-        let response = await axios.put(`${onlineURL}/user/me`,data)
+        let response = await axios.put(`${onlineURL}/user/me?token=${token}`,data)
         return response.data
+        
     },
-    putUserEmail: async (email) => {
+    putUserState: async (changedState) => {
         let token = await AsyncStorage.getItem('token')
         let data = {
-            email:email ,
-            token
+            'state': changedState
         }
-        let response = await axios.put(`${onlineURL}/user/me`,data)
+        let response = await axios.put(`${onlineURL}/user/me?token=${token}`,data)
         return response.data
+        
     },
-    putUserCep: async (cep) => {
-        let token = await AsyncStorage.getItem('token')
-        let data = {
-            state: cep ,
-            token
-        }
-        let response = await axios.put(`${onlineURL}/user/me`,data)
-        return response.data
-    },
+    
+   
     getStates:  async () => {
         let response = await axios.get(`${onlineURL}/states`)
         return response.data
