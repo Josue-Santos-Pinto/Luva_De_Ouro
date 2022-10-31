@@ -19,6 +19,7 @@ export default () => {
     const [name,setName] = useState('')
     const [email,setEmail] = useState('')
     const [tel,setTel] = useState('')
+    const [cep,setCep] = useState('')
     const [states,setStates] = useState([])
     const [state, setState] = useState('')
     const [changedName,setChangedName] = useState('')
@@ -51,6 +52,8 @@ export default () => {
             setName(result.name)
             setEmail(result.email)
             setState(result.state)
+            setTel(result.celular)
+            setCep(result.cep)
         }
         getUser()
     },[])
@@ -135,7 +138,7 @@ export default () => {
             <C.InputArea>
                 <C.Text>Telefone: </C.Text>
                 <TextInputMask 
-                        style={{width:150,height: 40,borderWidth: 1,borderColor: '#000',borderRadius: 5,padding: 10}}
+                        style={{width:150,height: 40}}
                         type={'cel-phone'}
                         options={{
                             maskType:'BRL',
@@ -149,7 +152,7 @@ export default () => {
                     />
             </C.InputArea>
             <C.InputArea>
-                <C.Text>CEP: </C.Text>
+                <C.Text>Cidade: </C.Text>
                 <C.TextValue>{state}</C.TextValue>
             </C.InputArea>
             <C.Button onPress={()=>setModal(!modal)}>
@@ -192,7 +195,7 @@ export default () => {
                         />
                     </C.InputArea>
                     <C.InputArea>
-                    <C.Text>Região</C.Text>
+                    <C.Text>Cidade</C.Text>
                     <C.Select>
                         <Picker
                             

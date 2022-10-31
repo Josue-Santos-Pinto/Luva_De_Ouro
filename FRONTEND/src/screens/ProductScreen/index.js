@@ -15,6 +15,8 @@ export default () => {
     const [title,setTitle] = useState('')
     const [date,setDate] = useState('')
     const [desc,setDesc] = useState('')
+    const [cel,setCel] = useState('')
+    const [cep,setCep] = useState('')
     const [images,setImages] = useState([])
     const [price,setPrice] = useState(0)
     const [priceNeg,setPriceNeg] = useState(false)
@@ -23,7 +25,7 @@ export default () => {
     const [views,setViews] = useState(0)
 
     const contact = '+55022996102410'
-    const message = 'Oi, gostaria de saber mais sobre o produto'
+    const message = `Olá ${userInfo.name}, vi o produto '${title}' no aplicativo Luva de Ouro e gostaria de saber mais sobre ele.`
 
     const id = route.params.id
     
@@ -46,6 +48,11 @@ export default () => {
         getItem()
         
     },[id])
+
+
+    useEffect(()=>{
+        console.log(cep,cel)
+    },[cel,cep])
     
   
     const openURL = async (url) => {
@@ -77,24 +84,22 @@ export default () => {
                 <C.ItemDesc>
                     <C.Text>Descrição</C.Text>
                     <C.Desc>{desc}</C.Desc>
-                    <C.Desc>{date}</C.Desc>
-                    <C.Desc>{priceNeg}</C.Desc>
-                    <C.Desc>{category}</C.Desc>
+                    <C.CategoryArea>
+                        <C.CategoryText>Categoria: </C.CategoryText>
+                        <C.CategoryValue>{category}</C.CategoryValue>
+                    </C.CategoryArea>
                 </C.ItemDesc>
                 <C.ItemLocalization>
                     <C.Text>Localização</C.Text>
                     <C.ItemArea>
                         <C.Desc>CEP</C.Desc>
-                        <C.ItemValue>{state}</C.ItemValue>
+                        <C.ItemValue>{userInfo.cep}</C.ItemValue>
                     </C.ItemArea>
                     <C.ItemArea>
                         <C.Desc>Cidade</C.Desc>
                         <C.ItemValue>{state}</C.ItemValue>
                     </C.ItemArea>
-                    <C.ItemArea>
-                        <C.Desc>Bairro</C.Desc>
-                        <C.ItemValue>{state}</C.ItemValue>
-                    </C.ItemArea>
+                    
                 </C.ItemLocalization>
                 <C.Seller>
                     <C.Text>Anunciante</C.Text>
@@ -108,13 +113,13 @@ export default () => {
                     </C.ItemArea>
                     <C.ItemArea>
                         <C.Desc>Telefone: </C.Desc>
-                        <C.ItemValue>{userInfo.email}</C.ItemValue>
+                        <C.ItemValue>{userInfo.celular}</C.ItemValue>
                     </C.ItemArea>
                 </C.Seller>
 
                 <C.ButtonArea>
                     <C.ChatButton onPress={()=>{
-                        Linking.openURL(`whatsapp://send?phone=${contact}&text=${message}`)
+                        Linking.openURL(`whatsapp://send?phone=+550${userInfo.celular}&text=${message}`)
                         }}>
                         <FontAwesome name="whatsapp" size={24} color='#FFF'/>
                         <C.ChatText>Whatsapp</C.ChatText>

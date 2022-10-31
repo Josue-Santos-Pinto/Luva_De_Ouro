@@ -44,6 +44,7 @@ export default {
         font-size: 15px;
         padding: 10px;
         margin: auto 5px;
+        color: #FFF;
     `,
    
     EmailIcon: styled.View`

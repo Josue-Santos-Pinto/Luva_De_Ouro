@@ -29,6 +29,8 @@ module.exports = {
             name: user.name,
             email: user.email,
             state: state.name,
+            celular: user.celular,
+            cep: user.cep,
             ads: adList
         });
     },

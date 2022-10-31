@@ -24,6 +24,7 @@ export default {
         background-color: #201f24;
         margin-top: 15px;
         margin-bottom: 15px;
+        color: #FFF;
     `,
     Select: styled.View`
         border-width: 1px;
@@ -40,7 +41,7 @@ export default {
         border-color: #CCC;
         background-color: #201f24;
         border-radius: 5px;
-        color: #6e6d75;
+        color: #FFF;
         font-size: 15px;
         padding: 10px;
         margin-top: 15px;
@@ -53,7 +54,7 @@ export default {
         border-bottom-left-radius: 5px;
         background-color: #201f24;
         padding: 10px;
-        color: #6e6d75;
+        color: #FFF;
         font-size: 15px;
     `,
     IconShowPassword: styled.TouchableOpacity`

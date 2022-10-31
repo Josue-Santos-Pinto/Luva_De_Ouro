@@ -37,6 +37,19 @@ Item: styled.View`
      margin: 10px auto;
  `,
   Desc: styled.Text``,
+  CategoryArea: styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  `,
+  CategoryText: styled.Text`
+    font-size: 18px;
+  `,
+  CategoryValue: styled.Text`
+    font-size: 15px;
+  `,
  
   ItemLocalization: styled.View`
      padding: 10px;

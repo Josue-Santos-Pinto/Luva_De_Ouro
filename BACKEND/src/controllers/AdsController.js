@@ -48,10 +48,12 @@ module.exports = {
             return;
         }
 
-
-
-      
-      
+        if(price) { // R$ 8.000,35 = 8000.35
+            price = price.replace('.', '').replace(',', '.').replace('R$ ', '');
+            price = parseFloat(price);
+        } else {
+            price = 0;
+        }
 
         const newAd = new Ad();
         newAd.status = true;
@@ -95,7 +97,7 @@ module.exports = {
         res.json({id: info._id});
     },
     getList: async (req, res) => {
-        let { sort = 'asc', offset = 0, limit = 100000, q, cat, state } = req.query;
+        let { sort = 'asc', offset = 0, limit = 8, q, cat, state } = req.query;
         let filters = {status: true};
         let total = 0;
 
@@ -216,7 +218,9 @@ module.exports = {
             category,
             userInfo: {
                 name: userInfo.name,
-                email: userInfo.email
+                email: userInfo.email,
+                celular: userInfo.celular,
+                cep: userInfo.cep
             },
             stateName: stateInfo.name,
             others
@@ -224,7 +228,7 @@ module.exports = {
     },
     editAction: async (req, res) => {
         let { id } = req.params;
-        let { title, status,state, price, priceneg, desc, cat, images, token } = req.body;
+        let { title, status, price, priceneg, desc, cat, images, token } = req.body;
 
         if(id.length < 12) {
             res.json({error: 'ID inválido'});
@@ -249,7 +253,7 @@ module.exports = {
             updates.title = title;
         }
         if(price) { // R$ 8.000,35 = 8000.35
-            
+            price = price.replace('.', '').replace(',', '.').replace('R$ ', '');
             price = parseFloat(price);
             updates.price = price;
         }
@@ -258,9 +262,6 @@ module.exports = {
         }
         if(status) {
             updates.status = status;
-        }
-        if(state) {
-            updates.state = state;
         }
         if(desc) {
             updates.description = desc;

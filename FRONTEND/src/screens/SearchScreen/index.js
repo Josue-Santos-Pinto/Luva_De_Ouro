@@ -21,7 +21,7 @@ export default () => {
     
 useEffect(()=>{
     const loadAlbum = async () => {
-        let data = await api.getAlbums()
+        let data = await api.getAllProducts()
         setItems(data.ads)
     }
     loadAlbum()

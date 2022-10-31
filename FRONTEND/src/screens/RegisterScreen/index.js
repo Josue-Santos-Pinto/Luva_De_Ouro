@@ -36,6 +36,7 @@ export default () => {
     const [name,setName] = useState('')
     const [email, setEmail] = useState('')
     const [tel,setTel] = useState('')
+    const [cep,setCep] = useState('')
     const [password, setPassword] = useState('')
     const [hidePass,setHidePass] = useState(true)
     const [confirmHidePass,setConfirmHidePass] = useState(true)
@@ -51,7 +52,7 @@ export default () => {
             const maskOff = telRef?.current.getRawValue()
             setTellMaskedOff(maskOff)
             console.log(telMaskedOff)
-            let result = await api.register(name,email,password,state,telMaskedOff)
+            let result = await api.register(name,email,password,state,telMaskedOff,cep)
             console.log(result)
             if(result.error === undefined || result.error === ''){
                 alert('Cadastrado com sucesso')
@@ -60,7 +61,13 @@ export default () => {
                     routes:[{name: 'LoginScreen'}]
                   })
             } else {
-                alert(result.error)
+                if(result.error.celular){
+                    alert(result.error.celular.msg)
+                } else if (result.error.cep){
+                    alert(result.error.cep.msg)
+                }else if (result.error.email){
+                    alert(result.error.email.msg)
+                }
             }
         } else {
             alert("Preencha os Campos")
@@ -85,6 +92,12 @@ export default () => {
                 value={email}
                 onChangeText={(e)=>setEmail(e)}
                 keyboardType='email-address'
+            />
+            <C.Field 
+                placeholder='99999-999'
+                placeholderTextColor='#6e6d75'
+                value={cep}
+                onChangeText={(e)=>setCep(e)}
             />
             <TextInputMask 
                 style={{borderWidth: 1,borderColor: '#CCC',borderRadius: 5,padding: 10,color:'#FFF',backgroundColor:'#201f24'}}

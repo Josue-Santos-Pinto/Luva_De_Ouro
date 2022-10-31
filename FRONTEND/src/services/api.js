@@ -32,13 +32,14 @@ export default {
         let token = await AsyncStorage.removeItem('token')
         return token
     },
-    register: async (name,email,password,state,tel) => {
+    register: async (name,email,password,state,telMaskedOff,cep) => {
         let data = {
             name,
             email,
             password,
             state,
-            tel
+            celular: telMaskedOff,
+            cep
         }
         let response = await axios.post(`${onlineURL}/user/signup`,data)
         return response.data

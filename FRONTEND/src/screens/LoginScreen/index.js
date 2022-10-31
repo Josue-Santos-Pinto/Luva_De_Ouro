@@ -113,7 +113,7 @@ export default () => {
             {/*<C.ButtonArea onPress={handleRegisterButton}>
                 <C.ButtonText>Cadastrar-se</C.ButtonText>
             </C.ButtonArea>*/}
-            <C.Text>Esqueceu sua senha ?</C.Text>
+            
             <C.Text onPress={()=>{navigation.navigate('RegisterScreen')}}>Não possui conta ? Criar agora!</C.Text>
             </ScrollView>
         </C.Container>
