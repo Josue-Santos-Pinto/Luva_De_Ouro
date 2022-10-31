@@ -97,7 +97,7 @@ module.exports = {
         res.json({id: info._id});
     },
     getList: async (req, res) => {
-        let { sort = 'asc', offset = 0, limit = 8, q, cat, state } = req.query;
+        let { sort = 'asc', offset = 0, limit = 1000000, q, cat, state } = req.query;
         let filters = {status: true};
         let total = 0;
 
@@ -253,7 +253,7 @@ module.exports = {
             updates.title = title;
         }
         if(price) { // R$ 8.000,35 = 8000.35
-            price = price.replace('.', '').replace(',', '.').replace('R$ ', '');
+            
             price = parseFloat(price);
             updates.price = price;
         }

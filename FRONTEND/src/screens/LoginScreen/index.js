@@ -57,8 +57,15 @@ export default () => {
                
 
                 
-            } else {
-                    alert(result.error)        
+            } else{
+                
+                if(result.error.email){
+                    alert(result.error.email.msg)
+                } else if (result.error.password){
+                    alert(result.error.password.msg)
+                }else {
+                    alert(result.error)
+                }
             }
         } else {
             alert('Preencha os Campos')

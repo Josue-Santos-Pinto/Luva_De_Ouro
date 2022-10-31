@@ -97,6 +97,7 @@ export default () => {
                 placeholder='99999-999'
                 placeholderTextColor='#6e6d75'
                 value={cep}
+                maxLength={9}
                 onChangeText={(e)=>setCep(e)}
             />
             <TextInputMask 
