@@ -155,10 +155,10 @@ export default () => {
             
                 
            
-        <StatusBar backgroundColor='#000'/>
+        <StatusBar backgroundColor='#121214' />
         <ScrollView>
         
-                <C.AddImageArea>
+                <C.AddImageArea >
                     <C.AddImage source={{uri:images[0]}} resizeMode='cover'/>
                 </C.AddImageArea>
                     <C.AddInfo>

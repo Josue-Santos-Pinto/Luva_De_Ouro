@@ -123,6 +123,7 @@ export default () => {
 
     return (
         <C.Container>
+            <StatusBar backgroundColor='#121214' />
             <ScrollView>
             <C.AvatarArea>
                 <C.Avatar />

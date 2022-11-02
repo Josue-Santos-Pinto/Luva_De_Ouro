@@ -6,7 +6,7 @@ import {FontAwesome} from '@expo/vector-icons'
 import api from "../../services/api";
 import { useStateValue } from "../../contexts/StateContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ScrollView } from "react-native";
+import { ScrollView, StatusBar } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import {TextInputMask} from 'react-native-masked-text'
 
@@ -77,6 +77,7 @@ export default () => {
 
     return (
         <C.Container>
+            <StatusBar backgroundColor='#121214' />
             <ScrollView>
            
             <C.Field 

@@ -3,12 +3,12 @@ import C from './style'
 
 import { useNavigation } from "@react-navigation/native";
 import {FontAwesome} from '@expo/vector-icons'
-import FakeApi from "../../Api/FakeApi";
 import ListaItem from "../../components/ListaItem";
 import  api  from "../../services/api";
 import AuthContext from "../../contexts/authContext";
 import { useStateValue } from "../../contexts/StateContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StatusBar } from "react-native";
 
 export default () => {
 
@@ -44,6 +44,7 @@ export default () => {
 
     return (
         <C.Container>
+            <StatusBar backgroundColor='#121214' />
             <C.ProductsList 
                 data={item}
                 renderItem={({item,index})=><ListaItem data={item} />}

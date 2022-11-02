@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import C from './style'
 import { useNavigation } from "@react-navigation/native";
-import { Linking, ScrollView } from "react-native";
+import { Linking, ScrollView, StatusBar } from "react-native";
 import {FontAwesome} from '@expo/vector-icons'
 import api from '../../services/api'
 import { useStateValue } from "../../contexts/StateContext";
@@ -76,6 +76,7 @@ export default () => {
 
     return (
         <C.Container>
+            <StatusBar backgroundColor='#121214' />
             <ScrollView>
             <C.Logo 
                 source={require('../../assets/logo.png')}

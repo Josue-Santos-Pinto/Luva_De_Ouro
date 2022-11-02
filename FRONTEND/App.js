@@ -5,6 +5,7 @@ import AuthStack from './src/stacks/AuthStack';
 import { AuthProvider } from './src/contexts/authContext';
 import { UserProvider } from './src/contexts/userContext';
 import { StateProvider } from './src/contexts/StateContext';
+import { StatusBar } from 'react-native';
 
 
 
@@ -19,6 +20,7 @@ export default () => {
         <StateProvider>
           <AuthProvider>
             <UserProvider>
+              <StatusBar backgroundColor='#121214'/>
               <AuthStack />
             </UserProvider>
           </AuthProvider>

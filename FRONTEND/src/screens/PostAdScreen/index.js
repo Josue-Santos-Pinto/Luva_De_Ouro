@@ -10,6 +10,7 @@ import api from "../../services/api";
 import { useStateValue } from "../../contexts/StateContext";
 import {TextInputMask} from 'react-native-masked-text'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StatusBar } from "react-native";
 
 export default () => {
 
@@ -128,6 +129,7 @@ export default () => {
 
     return (
         <C.Container>
+            <StatusBar backgroundColor='#121214' />
             <C.Scroll>
                 {url === '' &&
                     <C.AddPhotoArea>

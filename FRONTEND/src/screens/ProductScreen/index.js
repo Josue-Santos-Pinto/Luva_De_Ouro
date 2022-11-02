@@ -6,6 +6,7 @@ import { Alert, Linking } from "react-native";
 import C from './style'
 import UserContext from "../../contexts/userContext";
 import { FontAwesome} from '@expo/vector-icons'
+import { StatusBar } from "react-native";
 
 
 
@@ -69,7 +70,7 @@ export default () => {
 
     return(
         <C.Item>
-
+        <StatusBar backgroundColor='#121214' />
             <C.Scroll>
                 
                 <C.Image 

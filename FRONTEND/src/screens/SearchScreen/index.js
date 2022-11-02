@@ -4,10 +4,9 @@ import C from './style'
 import { useContext } from "react";
 
 import AuthContext from "../../contexts/authContext";
-
+import { StatusBar } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import {FontAwesome} from '@expo/vector-icons'
-import FakeApi from "../../Api/FakeApi";
 import ListaItem from "../../components/ListaItem";
 import api from "../../services/api";
 
@@ -76,6 +75,7 @@ useEffect(()=>{
 
     return (
         <C.Container>
+            <StatusBar backgroundColor='#121214' />
             {searchText != '' &&
                 <C.ProductsList 
                     data={list}
