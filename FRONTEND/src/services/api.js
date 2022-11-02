@@ -2,10 +2,8 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AxiosRequestConfig } from "axios";
 
-const products = 'https://jsonplaceholder.typicode.com'
 
-const localURL = 'http://10.0.2.2:5000'
-const onlineURL = 'http://192.168.1.102:5000'
+const onlineURL = 'https://luva-de-ouro.herokuapp.com'
 
 
 

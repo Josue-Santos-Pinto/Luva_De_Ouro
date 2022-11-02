@@ -27,8 +27,6 @@ export default () => {
     
     const [changedStatus,setChangedStatus] = useState('')
 
-    const contact = '+55022996102410'
-    const message = 'Oi, gostaria de saber mais sobre o produto'
 
     const id = route.params.id
     const status = route.params.status.toString()

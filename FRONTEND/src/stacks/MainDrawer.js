@@ -3,7 +3,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import HomeScreen from "../screens/HomeScreen";
 import ProductScreen from "../screens/ProductScreen";
-import AboutScreen from "../screens/AboutScreen";
 import DrawerCustom from "../components/DrawerCustom";
 import SearchScreen from "../screens/SearchScreen";
 import PostAdScreen from '../screens/PostAdScreen'
@@ -34,10 +33,6 @@ export default () => {
             <Drawer.Screen 
                 name="ProductScreen"
                 component={ProductScreen}
-            />
-             <Drawer.Screen 
-                name="AboutScreen"
-                component={AboutScreen}
             />
             <Drawer.Screen 
                 name="SearchScreen"

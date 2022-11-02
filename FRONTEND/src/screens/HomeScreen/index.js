@@ -38,8 +38,9 @@ export default () => {
                 </C.ButtonsArea>
             )
         })
-        loadAlbum()  
-    },[])
+        loadAlbum()
+    },[item])
+
 
 
     return (
