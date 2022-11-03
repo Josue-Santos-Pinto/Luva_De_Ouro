@@ -8,8 +8,10 @@ export default {
         width: 200px;
         height: 200px;
         border-radius: 100px;
-        background-color: #000;
+        border: 1px solid #000;
         margin: 20px auto;
+        justify-content: center;
+        align-items: center;
     `,
     Avatar: styled.View``,
     InputArea: styled.View`

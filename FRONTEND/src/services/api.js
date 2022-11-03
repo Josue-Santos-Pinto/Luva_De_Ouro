@@ -88,7 +88,7 @@ export default {
        
         axios({
             method: "post",
-            url: "http://192.168.1.102:5000/ad/add",
+            url: "https://luva-de-ouro.herokuapp.com/ad/add",
             data: fData,
             headers: { "Content-Type": "multipart/form-data" },
           })

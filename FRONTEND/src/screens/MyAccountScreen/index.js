@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Modal, ScrollView, StatusBar } from "react-native";
 import { useStateValue } from "../../contexts/StateContext";
 import { Picker } from "@react-native-picker/picker";
+import {FontAwesome} from '@expo/vector-icons'
 import {TextInputMask} from 'react-native-masked-text'
 import api from "../../services/api";
 import C from './style'
@@ -126,7 +127,7 @@ export default () => {
             <StatusBar backgroundColor='#121214' />
             <ScrollView>
             <C.AvatarArea>
-                <C.Avatar />
+                <FontAwesome name="user" size={90} color='#000' />
             </C.AvatarArea>
             <C.InputArea>
                 <C.Text>Nome: </C.Text>
