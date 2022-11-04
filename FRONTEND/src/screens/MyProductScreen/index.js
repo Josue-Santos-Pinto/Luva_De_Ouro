@@ -208,16 +208,16 @@ export default () => {
                 {status == 'true' &&
                     <>
                     <C.Button color={'#34af23'} onPress={changeAdd}>
-                        <C.ButtonText>Alterar Anuncio</C.ButtonText>
+                        <C.ButtonText>Alterar Anúncio</C.ButtonText>
                     </C.Button>
                   
-                    <C.Button color={'#FF0000'} onPress={disableAdd}>
-                        <C.ButtonText>Desativar Anuncio</C.ButtonText>
+                    <C.Button color={'#FF0000'} onPress={disableAdd} style={{marginBottom: 40}}>
+                        <C.ButtonText>Desativar Anúncio</C.ButtonText>
                     </C.Button>
                     </>
                   }  
                   {status == 'false' &&
-                    <C.Button color={'#34af23'} onPress={disableAdd} style={{marginBottom: 20}}>
+                    <C.Button color={'#34af23'} onPress={disableAdd} style={{marginBottom: 40}}>
                         <C.ButtonText>Ativar Anuncio</C.ButtonText>
                     </C.Button>
                   } 

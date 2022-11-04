@@ -114,7 +114,7 @@ export default () => {
             
             const json = await api.postNewAd(fData)
 
-            console.log(json)
+            alert('Anúncio postado com sucesso')
             navigation.reset({
                 index: 1,
                 routes:[{name: 'HomeScreen'}]

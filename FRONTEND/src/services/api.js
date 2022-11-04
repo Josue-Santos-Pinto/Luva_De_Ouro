@@ -65,6 +65,24 @@ export default {
         return response.data
         
     },
+    putUserTel: async (tel) => {
+        let token = await AsyncStorage.getItem('token')
+        let data = {
+            'celular': tel
+        }
+        let response = await axios.put(`${onlineURL}/user/me?token=${token}`,data)
+        return response.data
+        
+    },
+    putUserCep: async (cep) => {
+        let token = await AsyncStorage.getItem('token')
+        let data = {
+            'cep': cep
+        }
+        let response = await axios.put(`${onlineURL}/user/me?token=${token}`,data)
+        return response.data
+        
+    },
     putUserState: async (changedState) => {
         let token = await AsyncStorage.getItem('token')
         let data = {

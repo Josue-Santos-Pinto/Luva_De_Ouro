@@ -41,14 +41,13 @@ Item: styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    padding: 5px 10px;
   `,
   CategoryText: styled.Text`
-    font-size: 18px;
+    font-weight: bold;
   `,
   CategoryValue: styled.Text`
-    font-size: 15px;
+    
   `,
  
   ItemLocalization: styled.View`
@@ -63,13 +62,14 @@ Item: styled.View`
   ItemValue: styled.Text``,
   Seller: styled.View`
      padding: 10px;
-     margin-bottom: 50px;
+     margin-bottom: 30px;
  `,
   ButtonArea: styled.View`
      width: 100%;
      height: 50px;
      justify-content: center;
      align-items: center;
+     margin-bottom: 20px;
  `,
   ChatButton: styled.TouchableOpacity`
      width: 60%;

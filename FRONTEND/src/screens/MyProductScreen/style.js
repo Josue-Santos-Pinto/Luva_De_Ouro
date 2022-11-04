@@ -31,10 +31,10 @@ Item: styled.View`
     height: 120px;
  `,
  Button: styled.TouchableOpacity`
-    width: 100%;
+    width: 80%;
     height: 40px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin: 5px auto;
+    border-radius: 5px;
     background-color: ${props=>props.color}
     justify-content: center;
     align-items: center;

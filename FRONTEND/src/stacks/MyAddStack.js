@@ -11,7 +11,7 @@ export default () => {
     return (
         <Stack.Navigator screenOptions={{
             title:'',
-            headerShown: false
+            
             }}>
             <Stack.Screen 
                 name='MyAddScreen' 
@@ -22,7 +22,7 @@ export default () => {
             <Stack.Screen 
                 name='MyProductScreen' 
                 component={MyProductScreen}
-                options={{headerShown: false}} 
+                options={{headerShown: false}}
             />
              
         </Stack.Navigator>

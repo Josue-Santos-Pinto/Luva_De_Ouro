@@ -69,12 +69,14 @@ export default {
         align-items: center;
     `,
     SendButton: styled.TouchableOpacity`
-        width: 100px;
+        width: 60%;
         height: 40px;
         border-radius: 10px;
         background-color: #000;
         justify-content: center;
         align-items: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
     `,
     SendButtonText: styled.Text`
         font-size: 15px;

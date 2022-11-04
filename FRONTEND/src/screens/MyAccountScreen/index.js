@@ -26,6 +26,7 @@ export default () => {
     const [changedName,setChangedName] = useState('')
     const [changedEmail,setChangedEmail] = useState('')
     const [changedTel,setChangedTel] = useState('')
+    const [changedCep,setChangedCep] = useState('')
     const [changedState,setChangedState] = useState('')
     
     const [modal,setModal] = useState(false)
@@ -63,11 +64,12 @@ export default () => {
         const changingInfo = async () => {
             setChangedName(name)
             setChangedEmail(email)
-            
+            setChangedCep(cep)
+            setChangedTel(tel)
         }
         
         changingInfo()
-    },[name,email])
+    },[name,email,cep,tel])
    
    
   
@@ -86,16 +88,30 @@ export default () => {
                 alert(result2.error)
             }
         }
-        if(changedState != state){
-            let result3 = await api.putUserState(changedState)
-            console.log(changedState)
+        if(changedTel != tel){
+            let result3 = await api.putUserTel(changedTel)
             if(result3.error){
                 alert(result3.error)
+            }
+        }
+        if(changedCep != cep){
+            let result4 = await api.putUserCep(changedCep)
+            if(result4.error){
+                alert(result4.error)
+            }
+        }
+        if(changedState != state){
+            let result5 = await api.putUserState(changedState)
+            console.log(changedState)
+            if(result5.error){
+                alert(result5.error)
             }
         } else {
             let result = await api.putUserName(changedName)
             let result2 = await api.putUserEmail(changedEmail)
             let result3 = await api.putUserState(changedState)
+            let result4 = await api.putUserCep(changedCep)
+            let result5 = await api.putUserState(changedState)
         }
                 
         navigate.reset({
@@ -148,11 +164,15 @@ export default () => {
                             dddMask:"(99)"
                         }}
                         value={tel}
-                        onChangeText={text => setTel(text)}
                         ref={telRef}
                         placeholder='(99) 9999-9999'
                     />
             </C.InputArea>
+            <C.InputArea>
+                <C.Text>CEP: </C.Text>
+                <C.TextValue>{cep}</C.TextValue>
+            </C.InputArea>
+            <C.InputArea></C.InputArea>
             <C.InputArea>
                 <C.Text>Cidade: </C.Text>
                 <C.TextValue>{state}</C.TextValue>
@@ -171,6 +191,7 @@ export default () => {
                 }}
             >
                 <StatusBar />
+                <ScrollView>
                 <C.ModalArea>
                     <C.ModalTitle>Alterar Informações</C.ModalTitle>
                     <C.InputArea>
@@ -197,6 +218,14 @@ export default () => {
                         />
                     </C.InputArea>
                     <C.InputArea>
+                        <C.Text>CEP: </C.Text>
+                        <C.Input 
+                            value={changedCep}
+                            maxLength={9}
+                            onChangeText={(txt)=>setChangedCep(txt)}
+                        />
+                    </C.InputArea>
+                    <C.InputArea>
                     <C.Text>Cidade</C.Text>
                     <C.Select>
                         <Picker
@@ -217,6 +246,7 @@ export default () => {
                             <C.ButtonText>Enviar</C.ButtonText>
                     </C.Button>
             </C.ModalArea>
+            </ScrollView>
             </Modal>
         </C.Container>
     )

@@ -31,15 +31,17 @@ export default {
         width: 80%;
     `,
     Button: styled.TouchableOpacity`
+        width: 60%;
         margin: 25px auto;
         padding: 10px;
         border-radius: 5px;
-        background-color: #62dafc;
+        background-color: #202024;
         justify-content: center;
         align-items: center;
     `,
     ButtonText: styled.Text`
         color: #FFF;
+        font-size: 15px;
     `,
     ModalArea: styled.View`
         flex: 1;

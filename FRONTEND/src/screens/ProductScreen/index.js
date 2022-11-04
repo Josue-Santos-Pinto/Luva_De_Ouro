@@ -85,11 +85,11 @@ export default () => {
                 <C.ItemDesc>
                     <C.Text>Descrição</C.Text>
                     <C.Desc>{desc}</C.Desc>
-                    <C.CategoryArea>
-                        <C.CategoryText>Categoria: </C.CategoryText>
-                        <C.CategoryValue>{category}</C.CategoryValue>
-                    </C.CategoryArea>
                 </C.ItemDesc>
+                <C.CategoryArea>
+                    <C.CategoryText>Categoria: </C.CategoryText>
+                    <C.CategoryValue>{category}</C.CategoryValue>
+                </C.CategoryArea>
                 <C.ItemLocalization>
                     <C.Text>Localização</C.Text>
                     <C.ItemArea>

@@ -6,21 +6,29 @@ import { useEffect } from "react";
 const Item = styled.TouchableOpacity`
     flex-direction: row;
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-color: #CCC;
+    border-radius: 10px;
     overflow: hidden;
     background-color: #FFF;
+    
 `
 const ItemArea = styled.View`
     flex-direction: row;
 `
-const Photo = styled.Image`
-    height: 200px;
-    width: 150px;
+const PhotoArea = styled.View`
+    width: 200px;
+    height: 150px;
     justify-content: center;
     align-items: center;
+`
+const Photo = styled.Image`
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 `
 const TextArea = styled.View`
     flex-direction: column;
@@ -32,6 +40,7 @@ const Titulo = styled.Text`
     color: #000;
     width: 240px;
     min-height: 50px;
+    flex-wrap: wrap;
 `
 const Price = styled.Text`
     font-size: 20px;
@@ -56,7 +65,9 @@ export default (props) => {
         <Item onPress={()=>navigation.navigate('ProductScreen',{id})} activeOpacity={0.8}>
            
                 <ItemArea>
-                    <Photo source={{uri:image}} resizeMode='cover' />
+                    <PhotoArea>
+                        <Photo source={{uri:image}} resizeMode='cover' />
+                    </PhotoArea>
                     <TextArea>
                         <Titulo>{title}</Titulo>
                         <Price>R$ {parseFloat(price).toFixed(2)}</Price>
