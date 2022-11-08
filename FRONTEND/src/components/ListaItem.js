@@ -19,7 +19,7 @@ const ItemArea = styled.View`
     flex-direction: row;
 `
 const PhotoArea = styled.View`
-    width: 200px;
+    width: 170px;
     height: 150px;
     justify-content: center;
     align-items: center;
@@ -34,12 +34,16 @@ const TextArea = styled.View`
     flex-direction: column;
     justify-content: space-around;
     padding: 10px;
+    overflow: hidden;
+`
+const TitleArea = styled.View`
+    flex-direction: row;
 `
 const Titulo = styled.Text`
     font-size: 15px;
     color: #000;
-    width: 240px;
-    min-height: 50px;
+    flex: 1;
+    min-width: 140px;
     flex-wrap: wrap;
 `
 const Price = styled.Text`
@@ -69,7 +73,9 @@ export default (props) => {
                         <Photo source={{uri:image}} resizeMode='cover' />
                     </PhotoArea>
                     <TextArea>
+                        <TitleArea>
                         <Titulo>{title}</Titulo>
+                        </TitleArea>
                         <Price>R$ {parseFloat(price).toFixed(2)}</Price>
                         <State>{state}</State>
                         

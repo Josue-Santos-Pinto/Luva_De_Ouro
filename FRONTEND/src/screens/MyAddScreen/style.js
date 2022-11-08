@@ -3,6 +3,8 @@ import styled from "styled-components/native";
 export default {
     Container: styled.View`
         flex: 1;
+        padding-left: 15px;
+        padding-right: 15px;
         background-color: #201f24;
     `,
     ProductsList: styled.FlatList`

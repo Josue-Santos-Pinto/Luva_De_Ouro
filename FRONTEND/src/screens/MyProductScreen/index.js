@@ -99,9 +99,10 @@ export default () => {
 
 
     const changeAdd = async () => {
-        
+        let cleanAlerts = []
         if(changedTitle != title){
             let result = await api.putItemTitle(changedTitle,id)
+            cleanAlerts.push('\n' + 'Titulo alterado com sucesso')
             if(result.error){
                 alert(result.error)
             }
@@ -109,6 +110,7 @@ export default () => {
         if(unmaskedPrice != price){
             
             let result2 = await api.putItemPrice(unmaskedPrice,id)
+            cleanAlerts.push('\n' + 'Preço alterado com sucesso')
             
             if(result2.error){
                 alert(result2.error)
@@ -116,16 +118,13 @@ export default () => {
         }
         if(changedDesc != desc){
             let result3 = await api.putItemDesc(changedDesc,id)
+            cleanAlerts.push('\n' + 'Descrição alterada com sucesso')
             if(result3.error){
                 alert(result3.error)
             }
         }
-        if(changedState != state){
-            let result4 = await api.putItemState(changedState,id)
-            if(result4.error){
-                alert(result4.error)
-            }
-        } 
+        alert(cleanAlerts)
+         
         navigation.reset({
             index: 1,
             routes:[{name: 'HomeScreen'}]
@@ -139,6 +138,11 @@ export default () => {
         
         if(result.error){
             alert(result.error)
+        }
+        if(changedStatus === true){
+            alert('Anúncio desativado')
+        } else {
+            alert('Anúncio ativado')
         }
         navigation.reset({
             index: 1,
@@ -189,21 +193,7 @@ export default () => {
                             multiline={true}
                         />
                     </C.AddInfo>
-                    <C.AddInfo>
-                        <C.Text>Localização: </C.Text>
-                        <Picker
-                            
-                            dropdownIconColor='#000'
-                            selectedValue={changedState}
-                            onValueChange={(itemValue)=>setChangedState(itemValue)}
-                            
-                        >
-                        {changedState === undefined && <Picker.Item label="Selecione uma categoria" />}
-                        {states && states.map(i => 
-                            <Picker.Item key={i._id} label={i.name} value={i._id} />
-                            )}
-                        </Picker>
-                    </C.AddInfo>
+                   
                     
                 {status == 'true' &&
                     <>

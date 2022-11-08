@@ -13,10 +13,11 @@ import api from "../services/api";
 const Item = styled.TouchableOpacity`
     flex-direction: row;
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     border-top-width: 1px;
     border-bottom-width: 1px;
     border-color: #CCC;
+    border-radius: 10px;
     overflow: hidden;
     background-color: ${props=>props.color};
 `

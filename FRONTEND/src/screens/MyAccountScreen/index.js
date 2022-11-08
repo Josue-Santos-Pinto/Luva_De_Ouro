@@ -66,46 +66,56 @@ export default () => {
             setChangedEmail(email)
             setChangedCep(cep)
             setChangedTel(tel)
+            setChangedState(state)
         }
         
         changingInfo()
-    },[name,email,cep,tel])
+    },[name,email,cep,tel,state])
    
    
   
 
     const changeAll = async () => {
-         
+         let alerts = []
+         let cleanAlerts = []
         if(changedName != name){
             let result = await api.putUserName(changedName)
+            cleanAlerts.push('\n' + 'Nome alterado com sucesso')
             if(result.error){
-                alert(result.error)
+                alerts.push(result.error + '\n')
             }
         }
         if(changedEmail != email){
             let result2 = await api.putUserEmail(changedEmail)
+            cleanAlerts.push('\n' + 'Email alterado com sucesso')
             if(result2.error){
-                alert(result2.error)
+                alerts.push(result2.error + '\n')
             }
         }
         if(changedTel != tel){
             let result3 = await api.putUserTel(changedTel)
+            cleanAlerts.push('\n' + 'Celular alterado com sucesso')
             if(result3.error){
-                alert(result3.error)
+                alerts.push(result3.error + '\n')
             }
         }
         if(changedCep != cep){
             let result4 = await api.putUserCep(changedCep)
+            cleanAlerts.push('\n' + 'Cep alterado com sucesso')
             if(result4.error){
-                alert(result4.error)
+                alerts.push(result4.error + '\n')
             }
         }
         if(changedState != state){
+            if(changedState != 0){
             let result5 = await api.putUserState(changedState)
-            console.log(changedState)
+           
+                cleanAlerts.push('\n' + 'Cidade alterada com sucesso')
+         
             if(result5.error){
-                alert(result5.error)
+                alerts.push(result5.error + '\n')
             }
+        }
         } else {
             let result = await api.putUserName(changedName)
             let result2 = await api.putUserEmail(changedEmail)
@@ -113,30 +123,15 @@ export default () => {
             let result4 = await api.putUserCep(changedCep)
             let result5 = await api.putUserState(changedState)
         }
-                
+               
+        alert(cleanAlerts)
         navigate.reset({
             index: 1,
             routes: [{name:'HomeScreen'}]
         })        
                  
     }
-    const changeEmail = async () => {
-        
-               let result = await api.putUserEmail(changedEmail)
-               if(result.error){
-                   alert(result.error)
-               }
-                 
-   }
-   const changeState = async () => {
-        
-                let result = await api.putUserState(changedState)
-                if(result.error){
-                    alert(result.error)
-                }
-      
-}
-
+  
 
     return (
         <C.Container>
@@ -156,7 +151,7 @@ export default () => {
             <C.InputArea>
                 <C.Text>Telefone: </C.Text>
                 <TextInputMask 
-                        style={{width:150,height: 40}}
+                       
                         type={'cel-phone'}
                         options={{
                             maskType:'BRL',
@@ -235,7 +230,7 @@ export default () => {
                             onValueChange={(itemValue)=>setChangedState(itemValue)}
                             
                         >
-                        {changedState === undefined && <Picker.Item label="Selecione uma categoria" />}
+                         <Picker.Item label="Selecione uma cidade" value={0} />
                         {states && states.map(i => 
                             <Picker.Item key={i._id} label={i.name} value={i._id} />
                             )}

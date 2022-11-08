@@ -163,15 +163,6 @@ export default {
         let response = await axios.post(`${onlineURL}/ad/${id}`,request)
         return response.data
     },
-    putItemState: async (changedState,id) => {
-        let token = await AsyncStorage.getItem('token')
-        let request = {
-            'state':changedState,
-            token
-        }
-        let response = await axios.post(`${onlineURL}/ad/${id}`,request)
-        return response.data
-    },
     putItemStatus: async (changedStatus,id) => {
         let token = await AsyncStorage.getItem('token')
         let request = {

@@ -18,17 +18,23 @@ export default {
         width: 100%;
         flex-direction: column;
         padding: 10px ;
+        justify-content: center;
+        align-items:center;
     `,
     Text: styled.Text`
         font-size: 20px;
         margin-bottom: 5px;
+        text-align: center;
     `,
-    TextValue: styled.Text``,
+    TextValue: styled.Text`
+        text-align: center;
+    `,
     Input: styled.TextInput`
         border: 1px solid #000;
         border-radius: 5px;
         padding: 5px;
         width: 80%;
+        margin: auto;
     `,
     Button: styled.TouchableOpacity`
         width: 60%;
@@ -57,5 +63,6 @@ export default {
         border: 1px solid #000;
         font-size: 15px;
         border-radius: 5px;
+        margin: auto;
     `,
 }
