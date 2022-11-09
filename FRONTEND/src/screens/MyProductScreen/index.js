@@ -139,7 +139,7 @@ export default () => {
         if(result.error){
             alert(result.error)
         }
-        if(changedStatus === true){
+        if(changedStatus === "false"){
             alert('Anúncio desativado')
         } else {
             alert('Anúncio ativado')
