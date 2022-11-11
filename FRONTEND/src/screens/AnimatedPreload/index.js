@@ -40,7 +40,7 @@ export default () => {
             </C.TitleArea>
             <C.ImageArea>
               <C.Image 
-                source={require('../../assets/logo.png')}
+                source={require('../../image/logo.png')}
                 resizeMode='contain'
               />
             </C.ImageArea>

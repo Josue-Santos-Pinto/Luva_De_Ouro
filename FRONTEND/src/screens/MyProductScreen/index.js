@@ -139,7 +139,7 @@ export default () => {
         if(result.error){
             alert(result.error)
         }
-        if(changedStatus === true){
+        if(changedStatus === 'false'){
             alert('Anúncio desativado')
         } else {
             alert('Anúncio ativado')
@@ -206,15 +206,17 @@ export default () => {
                     </C.Button>
                     </>
                   }  
-                  {status == 'false' &&
-                    <C.Button color={'#34af23'} onPress={disableAdd} style={{marginBottom: 40}}>
-                        <C.ButtonText>Ativar Anuncio</C.ButtonText>
-                    </C.Button>
-                  } 
+                  
 
                     </ScrollView>
                     
-      
+                    {status == 'false' &&
+                  <C.Shadow>
+                        <C.Button color={'#34af23'} onPress={disableAdd} style={{marginBottom: 40}}>
+                            <C.ButtonText>Ativar Anuncio</C.ButtonText>
+                        </C.Button>
+                    </C.Shadow>
+                  } 
         
 
                 </C.Item>     

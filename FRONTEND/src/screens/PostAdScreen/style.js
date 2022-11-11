@@ -6,7 +6,7 @@ export default {
     Text: styled.Text``,
     AddPhotoArea: styled.View`
         width: 100%;
-        height: 250px;
+        height: 280px;
         background-color: #DDD;
         justify-content: center;
         align-items: center;
@@ -155,6 +155,15 @@ export default {
         margin-bottom: 5px;
         
     `,
-    RemoveButton: styled.TouchableOpacity``
+    RemoveButton: styled.TouchableOpacity``,
+    ChangePhoto: styled.TouchableOpacity`
+        width: 100%;
+        height: 40px;
+        background-color: #CCC;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+    `,
+    ChangePhotoText: styled.Text``
 
 }

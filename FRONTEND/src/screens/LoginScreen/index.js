@@ -79,7 +79,7 @@ export default () => {
             <StatusBar backgroundColor='#121214' />
             <ScrollView>
             <C.Logo 
-                source={require('../../assets/logo.png')}
+                source={require('../../image/logo.png')}
                 resizeMode='contain'
             />
             <C.Title>Luva de Ouro</C.Title>

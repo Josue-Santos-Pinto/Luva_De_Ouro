@@ -146,6 +146,9 @@ export default () => {
                     <C.PhotoArea>
                         <C.Photo source={{uri:url.uri}} resizeMode='contain' />
                     </C.PhotoArea>
+                    <C.ChangePhoto onPress={ImagePickerCall}>
+                        <C.ChangePhotoText>Trocar Foto</C.ChangePhotoText>
+                    </C.ChangePhoto>
                 </C.AddPhotoArea>
                 }
                 
