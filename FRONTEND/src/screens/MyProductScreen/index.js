@@ -139,11 +139,9 @@ export default () => {
         if(result.error){
             alert(result.error)
         }
-<<<<<<< HEAD
-        if(changedStatus === 'false'){
-=======
+
         if(changedStatus === "false"){
->>>>>>> 22bd50014f760fe01943be37aa832d578503e856
+
             alert('Anúncio desativado')
         } else {
             alert('Anúncio ativado')
