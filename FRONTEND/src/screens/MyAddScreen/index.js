@@ -58,11 +58,18 @@ export default () => {
     return (
         <C.Container>
             <StatusBar backgroundColor='#121214' />
+            {item.length > 0 &&
            <C.ProductsList 
                 data={item}
                 renderItem={({item,index})=><MyAdds data={item} />}
                 keyExtractor={(item,index)=>index}
             />
+            }
+            {item.length == 0 &&
+                <C.NoAdd>
+                    <C.NoAddText>Sem Anúncios</C.NoAddText>
+                </C.NoAdd>
+            }
         </C.Container>
     )
 }

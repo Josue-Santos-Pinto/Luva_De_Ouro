@@ -149,7 +149,7 @@ export default () => {
                 <C.TextValue>{email}</C.TextValue>
             </C.InputArea>
             <C.InputArea>
-                <C.Text>Telefone: </C.Text>
+                <C.Text>Celular: </C.Text>
                 <TextInputMask 
                        
                         type={'cel-phone'}

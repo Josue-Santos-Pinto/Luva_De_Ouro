@@ -171,7 +171,7 @@ export default () => {
                         />
                     </C.AddInfo>
                     <C.AddInfo>
-                        <C.Text>Price: </C.Text>
+                        <C.Text>Preço: </C.Text>
                         <TextInputMask 
                         style={{width:150,height: 40,borderWidth: 1,borderColor: '#000',borderRadius: 5,padding: 10}}
                         type={'money'}

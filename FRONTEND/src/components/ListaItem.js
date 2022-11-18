@@ -33,11 +33,14 @@ const Photo = styled.Image`
 const TextArea = styled.View`
     flex-direction: column;
     justify-content: space-around;
+    width: 70%;
     padding: 10px;
     overflow: hidden;
+    
 `
 const TitleArea = styled.View`
     flex-direction: row;
+    width: 60%;
 `
 const Titulo = styled.Text`
     font-size: 15px;

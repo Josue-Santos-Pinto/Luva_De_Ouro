@@ -44,14 +44,17 @@ export default () => {
     const [telMaskedOff,setTellMaskedOff] = useState()
     
     
-
+    useEffect(()=>{
+        if(tel){
+            const maskOff = telRef?.current.getRawValue()
+            setTellMaskedOff(maskOff)
+        }
+    },[tel])
 
     const handleRegisterButton = async () => {
 
         if(name && email && password && state && tel){
-            const maskOff = telRef?.current.getRawValue()
-            setTellMaskedOff(maskOff)
-            console.log(telMaskedOff)
+            
             let result = await api.register(name,email,password,state,telMaskedOff,cep)
             console.log(result)
             if(result.error === undefined || result.error === ''){
@@ -95,7 +98,7 @@ export default () => {
                 keyboardType='email-address'
             />
             <C.Field 
-                placeholder='99999-999'
+                placeholder='Digite seu CEP'
                 placeholderTextColor='#6e6d75'
                 value={cep}
                 maxLength={9}
@@ -112,7 +115,7 @@ export default () => {
                 value={tel}
                 onChangeText={text => setTel(text)}
                 ref={telRef}
-                placeholder='(99) 9999-9999'
+                placeholder='Digite seu celular'
                 placeholderTextColor='#6e6d75'
             />
             

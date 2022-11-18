@@ -9,6 +9,7 @@ export default {
     `,
     ProductsList: styled.FlatList`
         flex: 1;
+        margin-top: 20px;
     `,
     Text: styled.Text``,
     ButtonsArea: styled.TouchableOpacity`
