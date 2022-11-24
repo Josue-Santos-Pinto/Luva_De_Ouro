@@ -11,7 +11,9 @@ export default {
         flex: 1;
         margin-top: 20px;
     `,
-    Text: styled.Text``,
+    Text: styled.Text`
+        color: #FFF;
+    `,
     ButtonsArea: styled.TouchableOpacity`
         margin-right: 20px;
         flex-direction: row;
@@ -43,6 +45,16 @@ export default {
     FavButton: styled.TouchableOpacity`
         margin: 0 15px;
     `,
+    AlertArea: styled.View`
+        flex: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        justify-content: center;
+        align-items: center;
+    `
 
 
 }

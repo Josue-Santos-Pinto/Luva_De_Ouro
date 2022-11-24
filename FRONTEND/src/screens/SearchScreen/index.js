@@ -69,7 +69,9 @@ useEffect(()=>{
       
     },[searchText])
 
- 
+ useEffect(()=>{
+    console.log(list.length)
+ },[list])
     
 
 
@@ -82,6 +84,16 @@ useEffect(()=>{
                     renderItem={({item,index})=><ListaItem data={item} />}
                     keyExtractor={(item)=>item.id}
                 />
+            }
+            {searchText == '' &&
+            <C.AlertArea>
+                <C.Text>Pesquise algum produto</C.Text>
+            </C.AlertArea>
+            }
+            {searchText != '' && list.length == 0 &&
+            <C.AlertArea>
+                <C.Text>Produto não encontrado</C.Text>
+            </C.AlertArea>
             }
         </C.Container>
     )

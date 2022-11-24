@@ -9,13 +9,14 @@ import AuthContext from "../../contexts/authContext";
 import { useStateValue } from "../../contexts/StateContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MyAdds from "../../components/MyAdds";
-import { StatusBar } from "react-native";
+import { ActivityIndicator, StatusBar } from "react-native";
 
 export default () => {
 
     
     const [context, dispatch] = useStateValue()
     const [item,setItem] = useState([])
+    const [loading,setLoading] = useState(true)
     
     
     const navigation = useNavigation()
@@ -24,6 +25,7 @@ export default () => {
         const loadAlbum = async () => {
             let data = await api.getUser()   
             setItem(data.ads)  
+            setLoading(false)
         }
         loadAlbum()
     },[])
@@ -58,17 +60,22 @@ export default () => {
     return (
         <C.Container>
             <StatusBar backgroundColor='#121214' />
-            {item.length > 0 &&
+            {!loading && item.length > 0 &&
            <C.ProductsList 
                 data={item}
                 renderItem={({item,index})=><MyAdds data={item} />}
                 keyExtractor={(item,index)=>index}
             />
             }
-            {item.length == 0 &&
+            {!loading && item.length == 0 &&
                 <C.NoAdd>
                     <C.NoAddText>Sem Anúncios</C.NoAddText>
                 </C.NoAdd>
+            }
+            {loading &&
+                <C.ActivityArea>
+                    <ActivityIndicator color='#FFF' size='large' />
+                </C.ActivityArea>
             }
         </C.Container>
     )

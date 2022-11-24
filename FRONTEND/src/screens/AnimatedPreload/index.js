@@ -39,7 +39,7 @@ export default () => {
               <MotiText 
                 style={styles.Title}
                 from={{
-                    translateX: -300
+                    translateX: -400
                 }}
                 animate={{
                     translateX: 0 
