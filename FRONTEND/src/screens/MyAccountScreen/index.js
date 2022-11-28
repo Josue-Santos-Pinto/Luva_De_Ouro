@@ -81,6 +81,7 @@ export default () => {
         if(changedName != name){
             let result = await api.putUserName(changedName)
             cleanAlerts.push('\n' + 'Nome alterado com sucesso')
+            dispatch({type:'setName',payload:{name: changedName}})
             if(result.error){
                 alerts.push(result.error + '\n')
             }
@@ -88,6 +89,7 @@ export default () => {
         if(changedEmail != email){
             let result2 = await api.putUserEmail(changedEmail)
             cleanAlerts.push('\n' + 'Email alterado com sucesso')
+            dispatch({type:'setEmail',payload:{email: changedEmail}})
             if(result2.error){
                 alerts.push(result2.error + '\n')
             }
@@ -194,6 +196,7 @@ export default () => {
                         <C.Input 
                             value={changedName}
                             onChangeText={(e)=>setChangedName(e)}
+                            maxLength={20}
                         />
                     </C.InputArea>
                         
@@ -202,6 +205,7 @@ export default () => {
                         <C.Input 
                             value={changedEmail}
                             onChangeText={(txt)=>setChangedEmail(txt)}
+                            maxLength={30}
                         />
                     </C.InputArea>
                         

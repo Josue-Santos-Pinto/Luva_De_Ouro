@@ -90,10 +90,19 @@ export default () => {
     const postAd = async () => {
         let errors = []
         if(!title.trim()){
-            errors.push('Sem Titulo')
+            errors.push(`Adicione um titulo ` + `\n`)
         }
         if(!category || category == 'Selecione uma categoria'){
-            errors.push('Sem Categoria')
+            errors.push(`selecione um categoria ` + `\n`)
+        }
+        if(!desc.trim()){
+            errors.push(`Adicione um descrição ` +`\n`)
+        }
+        if(!unmaskedPrice){
+            errors.push(`Adicione um preço` + `\n`)
+        }
+        if(!image){
+            errors.push(`Selecione uma imagem` + `\n`)
         }
         if(errors.length === 0){
            console.log(image)

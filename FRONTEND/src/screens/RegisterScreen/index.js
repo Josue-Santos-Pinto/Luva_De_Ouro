@@ -84,9 +84,10 @@ export default () => {
             <ScrollView>
            
             <C.Field 
-                placeholder='Digite seu nome completo'
+                placeholder='Digite seu nome'
                 placeholderTextColor='#6e6d75'
                 value={name}
+                maxLength={20}
                 onChangeText={(e)=>setName(e)}
                 keyboardType='email-address'
             />
@@ -94,6 +95,7 @@ export default () => {
                 placeholder='Digite seu e-mail'
                 placeholderTextColor='#6e6d75'
                 value={email}
+                maxLength={30}
                 onChangeText={(e)=>setEmail(e)}
                 keyboardType='email-address'
             />
