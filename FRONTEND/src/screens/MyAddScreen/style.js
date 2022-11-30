@@ -47,6 +47,13 @@ export default {
         bottom: 0;
         justify-content: center;
         align-items: center;
-    `
+    `,
+    InfoArea: styled.View`
+        padding: 10px;
+    `,
+    MyAdds: styled.Text`
+        color: #FFF;
+        margin: 10px;
+    `,
 
 }

@@ -69,9 +69,7 @@ useEffect(()=>{
       
     },[searchText])
 
- useEffect(()=>{
-    console.log(list.length)
- },[list])
+ 
     
 
 

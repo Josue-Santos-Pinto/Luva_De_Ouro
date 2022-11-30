@@ -7,6 +7,8 @@ import { Modal, ScrollView, StatusBar } from "react-native";
 import {TextInputMask} from 'react-native-masked-text'
 import { Picker } from "@react-native-picker/picker";
 import api from "../services/api";
+import {format,parseISO} from 'date-fns'
+import { ptBR } from "date-fns/locale";
 
 
 
@@ -45,6 +47,13 @@ const Price = styled.Text`
     font-size: 20px;
     padding: 20px 0;
 `
+const Views = styled.Text`
+    font-size: 9px;
+`
+const Date = styled.Text`
+    font-size: 9px;
+`
+const TextInfos = styled.View``
 
 
 export default (props) => {
@@ -53,12 +62,17 @@ export default (props) => {
 
     
     const id = props.data.$__._id
-    const date = props.data.dateCreated
+    const date = props.data._doc.dateCreated
     const url = props.data._doc.images[0].url
-    const image = `https://luva-de-ouro.herokuapp.com/media/${url}`
+    const image = `http://192.168.1.105:5000/media/${url}`
     const title = props.data._doc.title
     const price = props.data._doc.price
     const status = props.data._doc.status.toString()
+    const views = props.data._doc.views
+    
+    useEffect(()=>{
+        console.log(date)
+    },[])
     
 
     
@@ -74,7 +88,12 @@ export default (props) => {
                     <TextArea>
                         <Titulo>{title}</Titulo>
                         <Price>R$ {parseFloat(price).toFixed(2)}</Price>
-                        
+                        <TextInfos>
+                            <Views>Visualizações: {views}</Views>
+                            <Date>{format(parseISO(date),'dd/MM/yyyy',{
+                                locale: ptBR
+                            })}</Date>
+                        </TextInfos>
                     </TextArea>
                 </ItemArea>
                 

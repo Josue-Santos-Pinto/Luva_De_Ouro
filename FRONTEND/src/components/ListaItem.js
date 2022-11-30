@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components/native";
 import { useEffect } from "react";
+import {format,parseISO} from 'date-fns'
+import { ptBR } from "date-fns/locale";
 
 const Item = styled.TouchableOpacity`
     flex-direction: row;
@@ -53,7 +55,13 @@ const Price = styled.Text`
     font-size: 20px;
     padding: 20px 0;
 `
-const State = styled.Text``
+const Views = styled.Text`
+    font-size: 9px;
+`
+const Date = styled.Text`
+    font-size: 9px;
+`
+const TextInfos = styled.View``
 
 export default (props) => {
 
@@ -63,8 +71,10 @@ export default (props) => {
     const image = props.data.image
     const title = props.data.title
     const price = props.data.price
-    const state = props.data.state
+    const views = props.data.views
+    const date = props.data.date
 
+    
     
    
 
@@ -80,7 +90,12 @@ export default (props) => {
                         <Titulo>{title}</Titulo>
                         </TitleArea>
                         <Price>R$ {parseFloat(price).toFixed(2)}</Price>
-                        <State>{state}</State>
+                        <TextInfos>
+                            <Views>{` ${views == 0 ? 'Nenhuma visualização': 'Visualizações: ' + views}`}</Views>
+                            <Date>{format(parseISO(date),"dd/MM/yyyy",{
+                                locale: ptBR
+                            })}</Date>
+                        </TextInfos>
                         
                     </TextArea>
                 </ItemArea>

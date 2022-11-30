@@ -18,7 +18,7 @@ export const UserProvider = ({children}) => {
         let photoList = [...photo]
         photoList.push(uri)
         setPhoto(photoList)
-        console.log(photoList)
+        
         navigation.navigate('PostAdScreen')
     }
 }

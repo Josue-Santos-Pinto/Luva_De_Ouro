@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AxiosRequestConfig } from "axios";
 
 
-const onlineURL = 'https://luva-de-ouro.herokuapp.com'
+const onlineURL = 'http://192.168.1.105:5000'
 
 
 
@@ -106,7 +106,7 @@ export default {
        
         axios({
             method: "post",
-            url: "https://luva-de-ouro.herokuapp.com/ad/add",
+            url: "http://192.168.1.105:5000/ad/add",
             data: fData,
             headers: { "Content-Type": "multipart/form-data" },
           })
@@ -134,6 +134,11 @@ export default {
     getItem: async (id) => {
         let token = await AsyncStorage.getItem('token')
         let response = await axios.get(`${onlineURL}/ad/item?token=${token}&&id=${id}`)
+        return response.data
+    },
+    getDashboard: async () => {
+        let token = await AsyncStorage.getItem('token')
+        let response = await axios.get(`${onlineURL}/user/me/dashboard?token=${token}`)
         return response.data
     },
     putItemTitle: async (changedTitle,id) => {

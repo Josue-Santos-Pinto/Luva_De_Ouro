@@ -74,7 +74,8 @@ export default (props) => {
         {title: 'Anúncios', icon: 'home', screen: 'HomeScreen' },
         {title: 'Inserir Anúncio', icon: 'pencil-alt', screen: 'PostAdScreen' },
         {title: 'Meus Anúncios', icon: 'th-large', screen: 'MyAddStack' },
-        {title: 'Minha Conta', icon: 'user', screen: 'MyAccountScreen' }
+        {title: 'Minha Conta', icon: 'user', screen: 'MyAccountScreen' },
+        {title: 'Dashboard', icon: 'circle-notch', screen: 'Dashboard' }
 
     ]
    

@@ -22,7 +22,7 @@ export const AuthProvider = ({children}) => {
     const loadAlbum = async () => {
         setLoading(true)
         const albumInfo = await api.getAlbums()
-        console.log(albumInfo)
+        
         setAlbumInfo(albumInfo)
         setLoading(false)
     }

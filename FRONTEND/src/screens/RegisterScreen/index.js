@@ -25,9 +25,7 @@ export default () => {
         getStates()
     },[])
 
-    useEffect(()=>{
-        console.log(states)
-    },[states])
+    
 
     const navigation = useNavigation()
     const [context,dispatch] = useStateValue()
@@ -56,7 +54,7 @@ export default () => {
         if(name && email && password && state && tel){
             
             let result = await api.register(name,email,password,state,telMaskedOff,cep)
-            console.log(result)
+            
             if(result.error === undefined || result.error === ''){
                 alert('Cadastrado com sucesso')
                 navigation.reset({

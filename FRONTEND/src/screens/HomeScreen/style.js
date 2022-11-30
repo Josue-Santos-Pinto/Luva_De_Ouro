@@ -7,6 +7,19 @@ export default {
         padding-left: 15px;
         padding-right: 15px;
     `,
+    InfoArea: styled.View`
+        padding: 10px;
+        height: 80px;
+        justify-content: center;
+        align-items: center;
+    `,
+    MyAdds: styled.Text`
+        color: #FFF;
+    `,
+    TotalAdds: styled.Text`
+        color: #FFF;
+        margin: 10px;
+    `,
     ProductsList: styled.FlatList`
         flex: 1;
         margin-top: 20px;

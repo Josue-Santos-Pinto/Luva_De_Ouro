@@ -82,9 +82,7 @@ export default () => {
         
     },[price])
 
-    useEffect(()=>{
-        console.log(url)
-    },[url])
+    
     
     
     const postAd = async () => {
@@ -105,7 +103,7 @@ export default () => {
             errors.push(`Selecione uma imagem` + `\n`)
         }
         if(errors.length === 0){
-           console.log(image)
+           
             const fData = new FormData()
             let token = await AsyncStorage.getItem('token')
             fData.append('token',token)
@@ -119,7 +117,7 @@ export default () => {
             fData.append('priceneg',priceNegotiable)
             fData.append('cat',category)
             fData.append('desc',desc)
-            console.log(fData)
+            
             
             const json = await api.postNewAd(fData)
 

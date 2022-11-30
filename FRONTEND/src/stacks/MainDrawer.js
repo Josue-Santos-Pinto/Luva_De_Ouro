@@ -8,6 +8,7 @@ import SearchScreen from "../screens/SearchScreen";
 import PostAdScreen from '../screens/PostAdScreen'
 import MyAccountScreen from "../screens/MyAccountScreen";
 import MyAddStack from "./MyAddStack";
+import Dashboard from '../screens/Dashboard'
 
 const Drawer = createDrawerNavigator()
 
@@ -51,6 +52,11 @@ export default () => {
                 name="MyAddStack"
                 component={MyAddStack}
                 options={{title: 'Minha Conta'}}
+            />
+            <Drawer.Screen 
+                name="Dashboard"
+                component={Dashboard}
+                options={{headerTintColor:'#6e6d75',headerTitle:true}}
             />
             
         </Drawer.Navigator>

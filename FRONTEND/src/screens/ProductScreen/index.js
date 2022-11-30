@@ -7,6 +7,8 @@ import C from './style'
 import UserContext from "../../contexts/userContext";
 import { FontAwesome} from '@expo/vector-icons'
 import { StatusBar } from "react-native";
+import {format,parseISO} from 'date-fns'
+import { ptBR } from "date-fns/locale";
 
 
 
@@ -51,9 +53,8 @@ export default () => {
     },[id])
 
 
-    useEffect(()=>{
-        console.log(cep,cel)
-    },[cel,cep])
+    
+    
     
   
     const openURL = async (url) => {
@@ -90,6 +91,14 @@ export default () => {
                     <C.CategoryText>Categoria: </C.CategoryText>
                     <C.CategoryValue>{category}</C.CategoryValue>
                 </C.CategoryArea>
+                <C.ItemArea>
+                        <C.Desc>Data de criação</C.Desc>
+                        {date && <C.ItemValue>
+                            {format(parseISO(date),'dd/MM/yyyy',{
+                                locale: ptBR
+                            })}
+                        </C.ItemValue>}
+                    </C.ItemArea>
                 <C.ItemLocalization>
                     <C.Text>Localização</C.Text>
                     <C.ItemArea>

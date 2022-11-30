@@ -31,7 +31,7 @@ export default () => {
             let result = await api.loginLocal(email,password)
            
             
-            console.log(result)
+            
             if(result.error === undefined || result.error === ''){
                 
                     dispatch({type: 'setToken',payload: {token: result.token}})
