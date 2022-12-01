@@ -25,7 +25,7 @@ export default () => {
     const [desc,setDesc] = useState('')
     const [imageSplit,setImageSplit] = useState('')
     const [modal,setModal] = useState(false)
-    const [price,setPrice] = useState('')
+    const [price,setPrice] = useState('0')
     const [unmaskedPrice,setUnmaskedPrice] = useState('')
     const [priceNegotiable,setPriceNegotiable] = useState(false)
     const [category,setCategory] = useState('')
@@ -87,6 +87,7 @@ export default () => {
     
     const postAd = async () => {
         let errors = []
+        console.log(unmaskedPrice)
         if(!title.trim()){
             errors.push(`Adicione um titulo ` + `\n`)
         }
@@ -96,7 +97,7 @@ export default () => {
         if(!desc.trim()){
             errors.push(`Adicione um descrição ` +`\n`)
         }
-        if(!unmaskedPrice){
+        if((unmaskedPrice == undefined)||(unmaskedPrice == null)){
             errors.push(`Adicione um preço` + `\n`)
         }
         if(!image){

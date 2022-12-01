@@ -29,14 +29,14 @@ export default () => {
             setActiveAdds(data.activeAdds)
             setDisableAdds(data.disableAdds)
             setTotalViews(data.totalViews)
-            } else {
+            } else if(data.total <= 3) {
                 alert('É necessário ter ao menos 4 anuncios para acessar essa página')
                 navigation.reset({
                     index: 1,
                     routes:[{name:'HomeScreen'}]
                 }) 
 
-            } if(data.total > 3 && data.totalViews == 0){
+            } if((data.total > 3) && (data.totalViews == 0)){
                 alert('É necessário ter ao menos 1 visualização em seus anúncios')
                 navigation.reset({
                     index: 1,
@@ -160,7 +160,7 @@ export default () => {
 
                 <C.ItemArea>
                     <C.Item>Preço: </C.Item>
-                    <C.ItemValue>R$ {mostViewitem.price}</C.ItemValue>
+                    <C.ItemValue>R$ {parseFloat(mostViewitem.price).toFixed(2)}</C.ItemValue>
                 </C.ItemArea>
 
                 <C.ItemArea>
